@@ -31,10 +31,6 @@ body {
   border-radius: 30px;
   padding: 60px;
   box-shadow: 0 25px 80px rgba(0,0,0,0.15);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
   margin-bottom: 30px;
 }
 
@@ -42,6 +38,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-image-wrapper-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
 }
 
 .hero-badge {
@@ -66,6 +71,7 @@ body {
   background-clip: text;
   line-height: 1.1;
   margin: 0;
+  text-align: center;
 }
 
 .hero-subtitle {
@@ -73,6 +79,7 @@ body {
   color: #6b7280;
   line-height: 1.6;
   margin: 0;
+  text-align: center;
 }
 
 .hero-details {
@@ -288,9 +295,7 @@ body {
 
 @media (max-width: 968px) {
   .home-hero {
-    grid-template-columns: 1fr;
     padding: 40px;
-    gap: 40px;
   }
 
   .hero-title {
@@ -299,7 +304,6 @@ body {
 
   .hero-image-modern {
     max-width: 350px;
-    margin: 0 auto;
   }
 
   .rsvp-form-section {
