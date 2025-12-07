@@ -313,9 +313,15 @@ body {
   padding: 60px;
   box-shadow: 0 25px 80px rgba(0,0,0,0.15);
   text-align: center;
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   animation: scaleIn 0.6s ease-out;
+}
+
+.success-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  animation: scaleIn 0.8s ease-out 0.2s both;
 }
 
 .success-card h2 {
@@ -323,6 +329,21 @@ body {
   color: #059669;
   margin-bottom: 20px;
   animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.success-main-text {
+  font-size: 1.3rem;
+  color: #1f2937;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.success-sub-text {
+  font-size: 1.1rem;
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 30px;
 }
 
 .success-card p {
@@ -355,6 +376,73 @@ body {
   color: #d97706;
   font-weight: 700;
   letter-spacing: 2px;
+  margin: 15px 0;
+}
+
+.token-instruction {
+  font-size: 0.95rem !important;
+  color: #6b7280 !important;
+  font-weight: 400 !important;
+  margin-top: 10px !important;
+}
+
+.success-next-steps {
+  background: #f0fdf4;
+  padding: 30px;
+  border-radius: 16px;
+  margin: 30px 0;
+  border: 2px solid #86efac;
+}
+
+.success-next-steps h3 {
+  color: #059669;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.next-step-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  margin: 15px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+}
+
+.step-number {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.next-step-item p {
+  margin: 0;
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.success-closing {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-top: 30px;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.success-closing strong {
+  color: #1f2937;
+  font-style: normal;
 }
 
 .token-note {
@@ -454,13 +542,34 @@ body {
     padding: 40px 25px;
   }
 
+  .success-icon {
+    font-size: 4rem;
+  }
+
   .success-card h2 {
     font-size: 2rem;
+  }
+
+  .success-main-text {
+    font-size: 1.1rem;
+  }
+
+  .success-sub-text {
+    font-size: 1rem;
   }
 
   .token-code {
     font-size: 1.2rem;
     padding: 15px;
+  }
+
+  .success-next-steps {
+    padding: 20px;
+  }
+
+  .next-step-item {
+    flex-direction: row;
+    text-align: left;
   }
 
   .button-group {
