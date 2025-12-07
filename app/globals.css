@@ -363,6 +363,26 @@ body {
   line-height: 1.6;
 }
 
+.dev-credit {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+  font-size: 0.95rem;
+  animation: fadeIn 1s ease-out 1s both;
+}
+
+.dev-credit a {
+  color: #f59e0b;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.dev-credit a:hover {
+  color: #d97706;
+  text-decoration: underline;
+}
+
 @media (max-width: 968px) {
   .home-hero {
     padding: 40px;

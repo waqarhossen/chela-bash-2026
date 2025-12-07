@@ -66,6 +66,10 @@ export default function SaveTheDatePage() {
             </p>
           </div>
         </div>
+
+        <div className="dev-credit">
+          Developed with ❤️ by <a href="https://waqarh.com" target="_blank" rel="noopener noreferrer">Waqar H.</a>
+        </div>
       </div>
     );
   }
@@ -286,6 +290,10 @@ END:VCALENDAR`;
             </form>
           </div>
         )}
+      </div>
+
+      <div className="dev-credit">
+        Developed with ❤️ by <a href="https://waqarh.com" target="_blank" rel="noopener noreferrer">Waqar H.</a>
       </div>
     </div>
   );
