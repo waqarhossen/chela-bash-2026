@@ -1,0 +1,292 @@
+'use client';
+
+import { useState } from 'react';
+
+export default function SaveTheDatePage() {
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    age: '',
+    relationship: '',
+    adults: '1',
+    children: '0',
+    notes: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const [token, setToken] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit RSVP');
+      }
+
+      setToken(data.token);
+      setSuccess(true);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  if (success) {
+    return (
+      <div className="home-wrapper">
+        <div className="home-container">
+          <div className="success-card">
+            <h2>Thank You for Your RSVP!</h2>
+            <p>Your response helps us plan every detail of this unforgettable 98th Celebration of Life.</p>
+            <div className="token-box">
+              <p><strong>Your invitation token:</strong></p>
+              <code className="token-code">{token}</code>
+            </div>
+            <p className="token-note">
+              Save this token! You'll receive a link to view the full invitation and confirm your attendance closer to the event.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="home-wrapper">
+      <div className="home-container">
+        <div className="home-hero">
+          <div className="hero-content">
+            <div className="hero-badge">Save The Date</div>
+            <h1 className="hero-title">Chela Bash 2026!</h1>
+            <p className="hero-subtitle">Celebration of Life for our beloved 98-year-old Grandmother. All generations of our family are invited, with a special welcome to the young ones.</p>
+            
+            <div className="hero-details">
+              <div className="detail-item">
+                <div>
+                  <div className="detail-label">Event Date</div>
+                  <div className="detail-value">Saturday, January 17th, 2026</div>
+                </div>
+              </div>
+              <div className="detail-item">
+                <div>
+                  <div className="detail-label">Time</div>
+                  <div className="detail-value">11:00 AM - 3:00 PM</div>
+                </div>
+              </div>
+              <div className="detail-item">
+                <div>
+                  <div className="detail-label">Location</div>
+                  <div className="detail-value">Rancho Cucamonga, California</div>
+                </div>
+              </div>
+              <div className="detail-item rsvp-deadline">
+                <div>
+                  <div className="detail-label">RSVP Deadline</div>
+                  <div className="detail-value">Sunday, December 28th, 2025 at 5:00 PM</div>
+                </div>
+              </div>
+            </div>
+
+            <p className="venue-note">Full location details will be shared in the formal invitation</p>
+
+            <div className="audio-section">
+              <audio controls className="audio-player-modern">
+                <source src="/chela-bash-audio.mp3" type="audio/mpeg" />
+              </audio>
+            </div>
+
+            {!showForm && (
+              <div className="button-group">
+                <button onClick={() => setShowForm(true)} className="btn btn-primary btn-large">
+                  RSVP Now
+                </button>
+                <button 
+                  onClick={() => {
+                    const event = {
+                      title: 'Chela Bash 2026 - Celebration of Life',
+                      description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
+                      location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
+                      start: '20260117T110000',
+                      end: '20260117T150000'
+                    };
+                    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description}
+LOCATION:${event.location}
+END:VEVENT
+END:VCALENDAR`;
+                    const blob = new Blob([icsContent], { type: 'text/calendar' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'chela-bash-2026.ics';
+                    a.click();
+                  }}
+                  className="btn btn-secondary btn-calendar"
+                >
+                  Add to Calendar
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="hero-image-wrapper">
+            <div className="image-frame">
+              <img 
+                src="/grandmother.jpg" 
+                alt="Grandmother" 
+                className="hero-image-modern"
+              />
+            </div>
+          </div>
+        </div>
+
+        {showForm && (
+          <div className="rsvp-form-section">
+            <h2 className="form-title">RSVP for Chela Bash 2026</h2>
+            <p className="form-subtitle">Please RSVP by Sunday, December 28th, 2025 at 5:00 PM</p>
+
+            {error && <div className="error-message">{error}</div>}
+
+            <form onSubmit={handleSubmit} className="rsvp-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="fullName">Full Name *</label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="age">Age *</label>
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    min="1"
+                    max="120"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="email">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="phone">Phone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="relationship">Relationship to Grandmother *</label>
+                <input
+                  type="text"
+                  id="relationship"
+                  name="relationship"
+                  value={formData.relationship}
+                  onChange={handleChange}
+                  placeholder="e.g., Granddaughter, Friend, Neighbor"
+                  required
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="adults">Number of Adults *</label>
+                  <input
+                    type="number"
+                    id="adults"
+                    name="adults"
+                    value={formData.adults}
+                    onChange={handleChange}
+                    min="1"
+                    max="20"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="children">Number of Children *</label>
+                  <input
+                    type="number"
+                    id="children"
+                    name="children"
+                    value={formData.children}
+                    onChange={handleChange}
+                    min="0"
+                    max="20"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="notes">Special Notes (Dietary restrictions, etc.)</label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  value={formData.notes}
+                  onChange={handleChange}
+                  placeholder="Any special requirements or notes..."
+                  rows={3}
+                />
+              </div>
+
+              <button type="submit" className="btn btn-primary btn-large" disabled={loading}>
+                {loading ? 'Submitting...' : 'Submit RSVP'}
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
