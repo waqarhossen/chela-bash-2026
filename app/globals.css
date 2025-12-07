@@ -12,6 +12,48 @@ body {
   min-height: 100vh;
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .home-wrapper {
   min-height: 100vh;
   display: flex;
@@ -32,6 +74,7 @@ body {
   padding: 60px;
   box-shadow: 0 25px 80px rgba(0,0,0,0.15);
   margin-bottom: 30px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .hero-content {
@@ -47,6 +90,7 @@ body {
   align-items: center;
   justify-content: center;
   margin: 20px 0;
+  animation: scaleIn 1s ease-out 0.3s both;
 }
 
 .hero-badge {
@@ -72,6 +116,7 @@ body {
   line-height: 1.1;
   margin: 0;
   text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .hero-subtitle {
@@ -80,6 +125,7 @@ body {
   line-height: 1.6;
   margin: 0;
   text-align: center;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
 .hero-details {
@@ -87,6 +133,7 @@ body {
   flex-direction: column;
   gap: 20px;
   margin-top: 10px;
+  animation: fadeInUp 0.8s ease-out 0.5s both;
 }
 
 .detail-item {
@@ -97,6 +144,12 @@ body {
   background: #fffbeb;
   border-radius: 12px;
   border-left: 4px solid #f59e0b;
+  transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
 }
 
 .detail-label {
@@ -128,12 +181,18 @@ body {
 
 .audio-section {
   margin-top: 10px;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
 }
 
 .audio-player-modern {
   width: 100%;
   height: 50px;
   border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.audio-player-modern:hover {
+  transform: scale(1.02);
 }
 
 .hero-image-wrapper {
@@ -156,6 +215,12 @@ body {
   border-radius: 30px;
   box-shadow: 0 20px 60px rgba(245, 158, 11, 0.3);
   border: 8px solid #fef3c7;
+  transition: all 0.4s ease;
+}
+
+.hero-image-modern:hover {
+  transform: scale(1.05);
+  box-shadow: 0 25px 70px rgba(245, 158, 11, 0.4);
 }
 
 .info-banner {
@@ -190,6 +255,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 15px;
   margin-top: 10px;
+  animation: fadeInUp 0.8s ease-out 0.7s both;
 }
 
 .btn-calendar {
@@ -212,6 +278,7 @@ body {
   padding: 50px 60px;
   box-shadow: 0 25px 80px rgba(0,0,0,0.15);
   margin-top: 30px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .form-title {
@@ -219,6 +286,7 @@ body {
   color: #d97706;
   margin-bottom: 10px;
   text-align: center;
+  animation: fadeIn 0.6s ease-out 0.2s both;
 }
 
 .form-subtitle {
@@ -247,12 +315,14 @@ body {
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
+  animation: scaleIn 0.6s ease-out;
 }
 
 .success-card h2 {
   font-size: 2.5rem;
   color: #059669;
   margin-bottom: 20px;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
 .success-card p {
@@ -441,7 +511,7 @@ body {
   border: 2px solid #fbbf24;
   border-radius: 12px;
   font-size: 16px;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   background: #fffbeb;
 }
 
@@ -452,6 +522,7 @@ body {
   border-color: #f59e0b;
   background: white;
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  transform: translateY(-2px);
 }
 
 .form-group textarea {
