@@ -74,6 +74,16 @@ export default function SaveTheDatePage() {
     <div className="home-wrapper">
       <div className="home-container">
         <div className="home-hero">
+          <div className="hero-image-wrapper">
+            <div className="image-frame">
+              <img 
+                src="/grandmother.jpg" 
+                alt="Grandmother" 
+                className="hero-image-modern"
+              />
+            </div>
+          </div>
+
           <div className="hero-content">
             <div className="hero-badge">Save The Date</div>
             <h1 className="hero-title">Chela Bash 2026!</h1>
@@ -151,16 +161,6 @@ END:VCALENDAR`;
                 </button>
               </div>
             )}
-          </div>
-
-          <div className="hero-image-wrapper">
-            <div className="image-frame">
-              <img 
-                src="/grandmother.jpg" 
-                alt="Grandmother" 
-                className="hero-image-modern"
-              />
-            </div>
           </div>
         </div>
 
