@@ -304,6 +304,8 @@ body {
 
   .hero-image-modern {
     max-width: 350px;
+    border-radius: 20px;
+    aspect-ratio: 4/3;
   }
 
   .rsvp-form-section {
