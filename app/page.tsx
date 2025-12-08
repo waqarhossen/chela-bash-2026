@@ -171,7 +171,14 @@ export default function SaveTheDatePage() {
             <p className="venue-note">Full location details will be shared in the formal invitation</p>
 
             <div className="audio-section">
-              <audio controls className="audio-player-modern">
+              <audio 
+                controls 
+                className="audio-player-modern"
+                onLoadedMetadata={(e) => {
+                  const audio = e.target as HTMLAudioElement;
+                  audio.currentTime = 6;
+                }}
+              >
                 <source src="/chela-bash-audio.mp3" type="audio/mpeg" />
               </audio>
             </div>
