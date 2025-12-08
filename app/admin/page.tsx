@@ -14,6 +14,8 @@ export default function AdminDashboard() {
   const [userRole, setUserRole] = useState('');
   const [showAddAdmin, setShowAddAdmin] = useState(false);
   const [newAdmin, setNewAdmin] = useState({ username: '', password: '', role: 'admin' });
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [passwordChange, setPasswordChange] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,6 +101,42 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (passwordChange.newPassword !== passwordChange.confirmPassword) {
+      alert('New passwords do not match!');
+      return;
+    }
+
+    if (passwordChange.currentPassword !== password) {
+      alert('Current password is incorrect!');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/admin/change-password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${username}:${password}`
+        },
+        body: JSON.stringify({ newPassword: passwordChange.newPassword })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to change password');
+      }
+
+      alert('Password changed successfully! Please login again.');
+      setPassword(passwordChange.newPassword);
+      setShowChangePassword(false);
+      setPasswordChange({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
   const filteredGuests = guests.filter(g =>
     g.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     g.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -144,10 +182,73 @@ export default function AdminDashboard() {
   return (
     <div className="admin-container">
       <div className="admin-header">
-        <h1>Chela Bash 2026 - Admin Dashboard</h1>
-        <p style={{ color: '#6b7280', marginTop: '10px' }}>
-          Logged in as: <strong>{username}</strong> ({userRole})
-        </p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <h1>Chela Bash 2026 - Admin Dashboard</h1>
+            <p style={{ color: '#6b7280', marginTop: '10px' }}>
+              Logged in as: <strong>{username}</strong> ({userRole})
+            </p>
+          </div>
+          <button 
+            onClick={() => setShowChangePassword(!showChangePassword)} 
+            className="btn btn-secondary"
+          >
+            Change Password
+          </button>
+        </div>
+
+        {showChangePassword && (
+          <div className="form-card" style={{ marginTop: '30px' }}>
+            <h3 style={{ marginBottom: '20px' }}>Change Your Password</h3>
+            <form onSubmit={handleChangePassword}>
+              <div className="form-group">
+                <label htmlFor="currentPassword">Current Password *</label>
+                <input
+                  type="password"
+                  id="currentPassword"
+                  value={passwordChange.currentPassword}
+                  onChange={(e) => setPasswordChange({...passwordChange, currentPassword: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="newPassword">New Password *</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  value={passwordChange.newPassword}
+                  onChange={(e) => setPasswordChange({...passwordChange, newPassword: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirm New Password *</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  value={passwordChange.confirmPassword}
+                  onChange={(e) => setPasswordChange({...passwordChange, confirmPassword: e.target.value})}
+                  required
+                />
+              </div>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button type="submit" className="btn btn-primary">
+                  Update Password
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setShowChangePassword(false);
+                    setPasswordChange({ currentPassword: '', newPassword: '', confirmPassword: '' });
+                  }}
+                  className="btn btn-secondary"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
 
       {userRole === 'super_admin' && (
