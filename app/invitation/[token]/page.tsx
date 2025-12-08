@@ -86,6 +86,43 @@ export default function InvitationPage() {
     );
   }
 
+  // If guest declined, show thank you message
+  if (guest.status === 'declined') {
+    return (
+      <div className="container">
+        <div className="invitation-card">
+          <h1 style={{ textAlign: 'center', color: '#d97706', marginBottom: '30px' }}>
+            Thank You for Your Response
+          </h1>
+
+          <p style={{ fontSize: '1.2rem', textAlign: 'center', marginBottom: '30px' }}>
+            Dear {guest.full_name},
+          </p>
+
+          <div className="info-section" style={{ background: '#fef3c7', border: '2px solid #fbbf24' }}>
+            <h3 style={{ color: '#92400e' }}>RSVP Already Submitted</h3>
+            <p>You have already submitted your RSVP indicating that you are <strong>unable to attend</strong>.</p>
+            <p style={{ marginTop: '15px' }}>
+              We appreciate you letting us know. Even though you can't join us, please keep our 
+              beloved grandmother in your thoughts on this special day.
+            </p>
+          </div>
+
+          <div className="info-section">
+            <h3>Event Details</h3>
+            <p><strong>Date:</strong> Saturday, January 17th, 2026</p>
+            <p><strong>Time:</strong> 11:00 AM - 3:00 PM</p>
+            <p><strong>Location:</strong> Rancho Cucamonga, California</p>
+          </div>
+
+          <p style={{ textAlign: 'center', marginTop: '30px', color: '#6b7280' }}>
+            If you need to update your response, please contact the event organizers directly.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container">
       <div className="invitation-card">

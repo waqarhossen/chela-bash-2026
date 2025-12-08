@@ -462,13 +462,22 @@ export default function AdminDashboard() {
                   </span>
                 </td>
                 <td>
-                  <button
-                    onClick={() => copyToken(guest.token)}
-                    className="btn btn-secondary"
-                    style={{ padding: '6px 12px', fontSize: '0.85rem' }}
-                  >
-                    Copy Link
-                  </button>
+                  <div style={{ display: 'flex', gap: '5px' }}>
+                    <button
+                      onClick={() => window.open(`/invitation/${guest.token}`, '_blank')}
+                      className="btn btn-secondary"
+                      style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                    >
+                      View
+                    </button>
+                    <button
+                      onClick={() => copyToken(guest.token)}
+                      className="btn btn-secondary"
+                      style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                    >
+                      Copy Link
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
