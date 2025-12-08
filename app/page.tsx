@@ -12,8 +12,10 @@ export default function SaveTheDatePage() {
     attendance: 'attending',
     adults: '1',
     children: '0',
-    childrenDetails: '',
   });
+  const [childrenList, setChildrenList] = useState<Array<{name: string, age: string, relationship: string}>>([
+    { name: '', age: '', relationship: '' }
+  ]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -25,10 +27,15 @@ export default function SaveTheDatePage() {
     setError('');
 
     try {
+      const childrenDetails = childrenList
+        .filter(child => child.name.trim())
+        .map(child => `${child.name} (Age: ${child.age}, Relationship: ${child.relationship})`)
+        .join('; ');
+
       const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ ...formData, childrenDetails })
       });
 
       const data = await response.json();
@@ -48,6 +55,22 @@ export default function SaveTheDatePage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleChildChange = (index: number, field: string, value: string) => {
+    const updated = [...childrenList];
+    updated[index] = { ...updated[index], [field]: value };
+    setChildrenList(updated);
+  };
+
+  const addChild = () => {
+    setChildrenList([...childrenList, { name: '', age: '', relationship: '' }]);
+  };
+
+  const removeChild = (index: number) => {
+    if (childrenList.length > 1) {
+      setChildrenList(childrenList.filter((_, i) => i !== index));
+    }
   };
 
   if (success) {
@@ -313,16 +336,60 @@ END:VCALENDAR`;
                     </div>
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="childrenDetails">Children's Details (names, ages, relationship to Marcela Garcia)</label>
-                    <textarea
-                      id="childrenDetails"
-                      name="childrenDetails"
-                      value={formData.childrenDetails}
-                      onChange={handleChange}
-                      placeholder="Add whatever applies."
-                      rows={3}
-                    />
+                  <div className="children-details-section">
+                    <label className="section-label">Children's Details</label>
+                    {childrenList.map((child, index) => (
+                      <div key={index} className="child-entry">
+                        <div className="child-fields">
+                          <div className="form-group">
+                            <label htmlFor={`childName${index}`}>Name</label>
+                            <input
+                              type="text"
+                              id={`childName${index}`}
+                              value={child.name}
+                              onChange={(e) => handleChildChange(index, 'name', e.target.value)}
+                              placeholder="Child's name"
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor={`childAge${index}`}>Age</label>
+                            <input
+                              type="text"
+                              id={`childAge${index}`}
+                              value={child.age}
+                              onChange={(e) => handleChildChange(index, 'age', e.target.value)}
+                              placeholder="Age"
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor={`childRel${index}`}>Relationship to Marcela Garcia</label>
+                            <input
+                              type="text"
+                              id={`childRel${index}`}
+                              value={child.relationship}
+                              onChange={(e) => handleChildChange(index, 'relationship', e.target.value)}
+                              placeholder="e.g., Great-granddaughter"
+                            />
+                          </div>
+                        </div>
+                        {childrenList.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeChild(index)}
+                            className="btn-remove-child"
+                          >
+                            Remove
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={addChild}
+                      className="btn-add-child"
+                    >
+                      + Add Child
+                    </button>
                   </div>
 
                   <p className="food-note">Food will be served at noon and cocktails will follow.</p>
