@@ -7,7 +7,13 @@ export async function GET(request: NextRequest) {
     const credentials = authHeader?.replace('Bearer ', '');
     const [username, password] = credentials?.split(':') || [];
 
-    if (username !== process.env.ADMIN_USERNAME || password !== process.env.ADMIN_PASSWORD) {
+    // Check database for user
+    const users = await sql`
+      SELECT * FROM admin_users 
+      WHERE username = ${username} AND password = ${password}
+    `;
+
+    if (users.length === 0) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
