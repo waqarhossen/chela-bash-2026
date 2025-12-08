@@ -4,11 +4,12 @@ import { sql } from '@/lib/db';
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get('authorization');
-    const password = authHeader?.replace('Bearer ', '');
+    const credentials = authHeader?.replace('Bearer ', '');
+    const [username, password] = credentials?.split(':') || [];
 
-    if (password !== process.env.ADMIN_PASSWORD) {
+    if (username !== process.env.ADMIN_USERNAME || password !== process.env.ADMIN_PASSWORD) {
       return NextResponse.json(
-        { error: 'Unauthorized' },
+        { error: 'Invalid credentials' },
         { status: 401 }
       );
     }

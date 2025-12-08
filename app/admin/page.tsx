@@ -7,6 +7,7 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +19,7 @@ export default function AdminDashboard() {
     try {
       const response = await fetch('/api/admin/guests', {
         headers: {
-          'Authorization': `Bearer ${password}`
+          'Authorization': `Bearer ${username}:${password}`
         }
       });
 
@@ -83,6 +84,16 @@ export default function AdminDashboard() {
           <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Admin Login</h2>
           {error && <div className="error-message">{error}</div>}
           <form onSubmit={handleLogin}>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
