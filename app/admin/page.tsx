@@ -17,6 +17,46 @@ export default function AdminDashboard() {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [passwordChange, setPasswordChange] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
 
+  useEffect(() => {
+    // Check for saved session
+    const savedUsername = sessionStorage.getItem('adminUsername');
+    const savedPassword = sessionStorage.getItem('adminPassword');
+    
+    if (savedUsername && savedPassword) {
+      setUsername(savedUsername);
+      setPassword(savedPassword);
+      fetchGuestData(savedUsername, savedPassword);
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchGuestData = async (user: string, pass: string) => {
+    try {
+      const response = await fetch('/api/admin/guests', {
+        headers: {
+          'Authorization': `Bearer ${user}:${pass}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid credentials');
+      }
+
+      const data = await response.json();
+      setGuests(data.guests);
+      setStats(data.stats);
+      setUserRole(data.userRole);
+      setAuthenticated(true);
+    } catch (err: any) {
+      setError(err.message);
+      sessionStorage.removeItem('adminUsername');
+      sessionStorage.removeItem('adminPassword');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -37,6 +77,10 @@ export default function AdminDashboard() {
       setStats(data.stats);
       setUserRole(data.userRole);
       setAuthenticated(true);
+      
+      // Save credentials to session storage
+      sessionStorage.setItem('adminUsername', username);
+      sessionStorage.setItem('adminPassword', password);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -130,11 +174,23 @@ export default function AdminDashboard() {
 
       alert('Password changed successfully! Please login again.');
       setPassword(passwordChange.newPassword);
+      sessionStorage.setItem('adminPassword', passwordChange.newPassword);
       setShowChangePassword(false);
       setPasswordChange({ currentPassword: '', newPassword: '', confirmPassword: '' });
     } catch (err: any) {
       alert(err.message);
     }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('adminUsername');
+    sessionStorage.removeItem('adminPassword');
+    setAuthenticated(false);
+    setUsername('');
+    setPassword('');
+    setGuests([]);
+    setStats(null);
+    setUserRole('');
   };
 
   const filteredGuests = guests.filter(g =>
@@ -189,12 +245,21 @@ export default function AdminDashboard() {
               Logged in as: <strong>{username}</strong> ({userRole})
             </p>
           </div>
-          <button 
-            onClick={() => setShowChangePassword(!showChangePassword)} 
-            className="btn btn-secondary"
-          >
-            Change Password
-          </button>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button 
+              onClick={() => setShowChangePassword(!showChangePassword)} 
+              className="btn btn-secondary"
+            >
+              Change Password
+            </button>
+            <button 
+              onClick={handleLogout} 
+              className="btn btn-secondary"
+              style={{ background: '#dc2626', borderColor: '#dc2626' }}
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {showChangePassword && (
