@@ -20,11 +20,13 @@ export default function SaveTheDatePage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const [token, setToken] = useState('');
+  const [attendanceStatus, setAttendanceStatus] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setAttendanceStatus(formData.attendance);
 
     try {
       const childrenDetails = childrenList
@@ -74,6 +76,72 @@ export default function SaveTheDatePage() {
   };
 
   if (success) {
+    if (attendanceStatus === 'unable') {
+      return (
+        <div className="home-wrapper">
+          <div className="home-container">
+            <div className="success-card">
+              <div className="success-icon">💐</div>
+              <h2>Thank You for Your Response!</h2>
+              <p className="success-main-text">
+                We're sorry you won't be able to join us for this special celebration. 
+                Your response helps us with our planning, and we truly appreciate you letting us know.
+              </p>
+              <p className="success-sub-text">
+                Even though you can't attend, please save the date and keep our beloved grandmother 
+                in your thoughts on this special day.
+              </p>
+              <div className="save-date-box">
+                <h3>Save the Date</h3>
+                <p><strong>Saturday, January 17th, 2026</strong></p>
+                <p>11:00 AM - 3:00 PM</p>
+                <p>Rancho Cucamonga, California</p>
+                <button 
+                  onClick={() => {
+                    const event = {
+                      title: 'Chela Bash 2026 - Celebration of Life',
+                      description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
+                      location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
+                      start: '20260117T110000',
+                      end: '20260117T150000'
+                    };
+                    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description}
+LOCATION:${event.location}
+END:VEVENT
+END:VCALENDAR`;
+                    const blob = new Blob([icsContent], { type: 'text/calendar' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'chela-bash-2026.ics';
+                    a.click();
+                  }}
+                  className="btn btn-primary"
+                  style={{ marginTop: '20px' }}
+                >
+                  Add to Calendar
+                </button>
+              </div>
+              <p className="success-closing">
+                With warm regards,<br />
+                <strong>The Family</strong> ❤️
+              </p>
+            </div>
+          </div>
+
+          <div className="dev-credit">
+            Developed with ❤️ by <a href="https://waqarh.com" target="_blank" rel="noopener noreferrer">Waqar H.</a>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="home-wrapper">
         <div className="home-container">
