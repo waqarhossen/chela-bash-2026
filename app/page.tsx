@@ -8,11 +8,10 @@ export default function SaveTheDatePage() {
     fullName: '',
     email: '',
     phone: '',
-    age: '',
     relationship: '',
     adults: '1',
     children: '0',
-    notes: ''
+    childrenDetails: '',
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -196,14 +195,14 @@ END:VCALENDAR`;
         {showForm && (
           <div className="rsvp-form-section">
             <h2 className="form-title">RSVP for Chela Bash 2026</h2>
-            <p className="form-subtitle">Please RSVP by Sunday, December 28th, 2025 at 5:00 PM</p>
+            <p className="form-subtitle rsvp-deadline-note">Please RSVP by Sunday, December 28th, 2025 at 5:00 PM</p>
 
             {error && <div className="error-message">{error}</div>}
 
             <form onSubmit={handleSubmit} className="rsvp-form">
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="fullName">Full Name *</label>
+                  <label htmlFor="fullName">Primary Guest Name *</label>
                   <input
                     type="text"
                     id="fullName"
@@ -215,15 +214,14 @@ END:VCALENDAR`;
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="age">Age *</label>
+                  <label htmlFor="relationship">Relationship to Marcela Garcia *</label>
                   <input
-                    type="number"
-                    id="age"
-                    name="age"
-                    value={formData.age}
+                    type="text"
+                    id="relationship"
+                    name="relationship"
+                    value={formData.relationship}
                     onChange={handleChange}
-                    min="1"
-                    max="120"
+                    placeholder="e.g., Granddaughter, Friend, Neighbor"
                     required
                   />
                 </div>
@@ -254,22 +252,9 @@ END:VCALENDAR`;
                 </div>
               </div>
 
-              <div className="form-group">
-                <label htmlFor="relationship">Relationship to Grandmother *</label>
-                <input
-                  type="text"
-                  id="relationship"
-                  name="relationship"
-                  value={formData.relationship}
-                  onChange={handleChange}
-                  placeholder="e.g., Granddaughter, Friend, Neighbor"
-                  required
-                />
-              </div>
-
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="adults">Number of Adults *</label>
+                  <label htmlFor="adults">Number of Adults (age 16 and over) *</label>
                   <input
                     type="number"
                     id="adults"
@@ -283,7 +268,7 @@ END:VCALENDAR`;
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="children">Number of Children *</label>
+                  <label htmlFor="children">Number of Children (under 16) *</label>
                   <input
                     type="number"
                     id="children"
@@ -298,16 +283,18 @@ END:VCALENDAR`;
               </div>
 
               <div className="form-group">
-                <label htmlFor="notes">Special Notes (Dietary restrictions, etc.)</label>
+                <label htmlFor="childrenDetails">Children's Details (names, ages, relationship to Marcela Garcia)</label>
                 <textarea
-                  id="notes"
-                  name="notes"
-                  value={formData.notes}
+                  id="childrenDetails"
+                  name="childrenDetails"
+                  value={formData.childrenDetails}
                   onChange={handleChange}
-                  placeholder="Any special requirements or notes..."
+                  placeholder="Add whatever applies."
                   rows={3}
                 />
               </div>
+
+              <p className="food-note">Food will be served at noon and cocktails will follow.</p>
 
               <button type="submit" className="btn btn-primary btn-large" disabled={loading}>
                 {loading ? 'Submitting...' : 'Submit RSVP'}

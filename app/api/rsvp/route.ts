@@ -5,9 +5,9 @@ import { nanoid } from 'nanoid';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { fullName, email, phone, age, relationship, adults, children, notes } = body;
+    const { fullName, email, phone, relationship, adults, children, childrenDetails } = body;
 
-    if (!fullName || !email || !age || !relationship || !adults) {
+    if (!fullName || !email || !relationship || !adults) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
         full_name, email, phone, age, relationship, 
         adults, children, notes, token
       ) VALUES (
-        ${fullName}, ${email}, ${phone || null}, ${parseInt(age)}, ${relationship},
-        ${parseInt(adults)}, ${parseInt(children)}, ${notes || null}, ${token}
+        ${fullName}, ${email}, ${phone || null}, ${0}, ${relationship},
+        ${parseInt(adults)}, ${parseInt(children)}, ${childrenDetails || null}, ${token}
       )
       RETURNING id, token
     `;
