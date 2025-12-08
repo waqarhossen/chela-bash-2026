@@ -9,6 +9,7 @@ export default function SaveTheDatePage() {
     email: '',
     phone: '',
     relationship: '',
+    attendance: 'attending',
     adults: '1',
     children: '0',
     childrenDetails: '',
@@ -227,74 +228,133 @@ END:VCALENDAR`;
                 </div>
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="email">Email *</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="phone">Phone</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="adults">Number of Adults (age 16 and over) *</label>
-                  <input
-                    type="number"
-                    id="adults"
-                    name="adults"
-                    value={formData.adults}
-                    onChange={handleChange}
-                    min="1"
-                    max="20"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="children">Number of Children (under 16) *</label>
-                  <input
-                    type="number"
-                    id="children"
-                    name="children"
-                    value={formData.children}
-                    onChange={handleChange}
-                    min="0"
-                    max="20"
-                    required
-                  />
+              <div className="form-group attendance-group">
+                <label>Will you be attending? *</label>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="attendance"
+                      value="attending"
+                      checked={formData.attendance === 'attending'}
+                      onChange={handleChange}
+                      required
+                    />
+                    <span>Yes, I'll be attending</span>
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="attendance"
+                      value="unable"
+                      checked={formData.attendance === 'unable'}
+                      onChange={handleChange}
+                      required
+                    />
+                    <span>Unable to Attend</span>
+                  </label>
                 </div>
               </div>
 
-              <div className="form-group">
-                <label htmlFor="childrenDetails">Children's Details (names, ages, relationship to Marcela Garcia)</label>
-                <textarea
-                  id="childrenDetails"
-                  name="childrenDetails"
-                  value={formData.childrenDetails}
-                  onChange={handleChange}
-                  placeholder="Add whatever applies."
-                  rows={3}
-                />
-              </div>
+              {formData.attendance === 'attending' && (
+                <>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="email">Email *</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
 
-              <p className="food-note">Food will be served at noon and cocktails will follow.</p>
+                    <div className="form-group">
+                      <label htmlFor="phone">Phone</label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="adults">Number of Adults (age 16 and over) *</label>
+                      <input
+                        type="number"
+                        id="adults"
+                        name="adults"
+                        value={formData.adults}
+                        onChange={handleChange}
+                        min="1"
+                        max="20"
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="children">Number of Children (under 16) *</label>
+                      <input
+                        type="number"
+                        id="children"
+                        name="children"
+                        value={formData.children}
+                        onChange={handleChange}
+                        min="0"
+                        max="20"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="childrenDetails">Children's Details (names, ages, relationship to Marcela Garcia)</label>
+                    <textarea
+                      id="childrenDetails"
+                      name="childrenDetails"
+                      value={formData.childrenDetails}
+                      onChange={handleChange}
+                      placeholder="Add whatever applies."
+                      rows={3}
+                    />
+                  </div>
+
+                  <p className="food-note">Food will be served at noon and cocktails will follow.</p>
+                </>
+              )}
+
+              {formData.attendance === 'unable' && (
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="email">Email *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              )}
 
               <button type="submit" className="btn btn-primary btn-large" disabled={loading}>
                 {loading ? 'Submitting...' : 'Submit RSVP'}
