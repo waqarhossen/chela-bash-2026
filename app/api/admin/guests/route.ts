@@ -20,6 +20,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const userRole = users[0].role;
+
     const guests = await sql`
       SELECT * FROM guests ORDER BY created_at DESC
     `;
@@ -33,7 +35,7 @@ export async function GET(request: NextRequest) {
       totalChildren: guests.reduce((sum, g) => sum + (g.confirmed_children ?? g.children), 0),
     };
 
-    return NextResponse.json({ guests, stats });
+    return NextResponse.json({ guests, stats, userRole });
   } catch (error: any) {
     console.error('Admin guests error:', error);
     return NextResponse.json(

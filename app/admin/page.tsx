@@ -11,6 +11,9 @@ export default function AdminDashboard() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [userRole, setUserRole] = useState('');
+  const [showAddAdmin, setShowAddAdmin] = useState(false);
+  const [newAdmin, setNewAdmin] = useState({ username: '', password: '', role: 'admin' });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +33,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       setGuests(data.guests);
       setStats(data.stats);
+      setUserRole(data.userRole);
       setAuthenticated(true);
     } catch (err: any) {
       setError(err.message);
@@ -69,6 +73,30 @@ export default function AdminDashboard() {
     const url = `${window.location.origin}/invitation/${token}`;
     navigator.clipboard.writeText(url);
     alert('Invitation link copied to clipboard!');
+  };
+
+  const handleAddAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${username}:${password}`
+        },
+        body: JSON.stringify(newAdmin)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add admin');
+      }
+
+      alert('Admin user added successfully!');
+      setShowAddAdmin(false);
+      setNewAdmin({ username: '', password: '', role: 'admin' });
+    } catch (err: any) {
+      alert(err.message);
+    }
   };
 
   const filteredGuests = guests.filter(g =>
@@ -117,7 +145,69 @@ export default function AdminDashboard() {
     <div className="admin-container">
       <div className="admin-header">
         <h1>Chela Bash 2026 - Admin Dashboard</h1>
+        <p style={{ color: '#6b7280', marginTop: '10px' }}>
+          Logged in as: <strong>{username}</strong> ({userRole})
+        </p>
       </div>
+
+      {userRole === 'super_admin' && (
+        <div className="admin-management-section">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 style={{ color: '#d97706' }}>Admin Management</h2>
+            <button 
+              onClick={() => setShowAddAdmin(!showAddAdmin)} 
+              className="btn btn-secondary"
+            >
+              {showAddAdmin ? 'Cancel' : '+ Add New Admin'}
+            </button>
+          </div>
+
+          {showAddAdmin && (
+            <div className="form-card" style={{ marginBottom: '30px' }}>
+              <h3 style={{ marginBottom: '20px' }}>Add New Admin User</h3>
+              <form onSubmit={handleAddAdmin}>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="newUsername">Username *</label>
+                    <input
+                      type="text"
+                      id="newUsername"
+                      value={newAdmin.username}
+                      onChange={(e) => setNewAdmin({...newAdmin, username: e.target.value})}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="newPassword">Password *</label>
+                    <input
+                      type="text"
+                      id="newPassword"
+                      value={newAdmin.password}
+                      onChange={(e) => setNewAdmin({...newAdmin, password: e.target.value})}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="newRole">Role *</label>
+                  <select
+                    id="newRole"
+                    value={newAdmin.role}
+                    onChange={(e) => setNewAdmin({...newAdmin, role: e.target.value})}
+                    style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '2px solid #fbbf24' }}
+                  >
+                    <option value="admin">Admin</option>
+                    <option value="super_admin">Super Admin</option>
+                  </select>
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Create Admin User
+                </button>
+              </form>
+            </div>
+          )}
+        </div>
+      )}
 
       {stats && (
         <div className="stats-grid">
