@@ -38,20 +38,20 @@ export default function AdminDashboard() {
   };
 
   const exportCSV = () => {
-    const headers = ['Name', 'Email', 'Phone', 'Age', 'Relationship', 'Adults', 'Children', 'Confirmed Adults', 'Confirmed Children', 'Status', 'Token', 'Notes', 'Created'];
+    const headers = ['Name', 'Email', 'Phone', 'Relationship', 'Attendance', 'Adults', 'Children', 'Children Details', 'Confirmed Adults', 'Confirmed Children', 'Status', 'Token', 'Created'];
     const rows = guests.map(g => [
       g.full_name,
       g.email,
       g.phone || '',
-      g.age,
       g.relationship,
+      g.status === 'declined' ? 'Unable to Attend' : 'Attending',
       g.adults,
       g.children,
+      g.notes || '',
       g.confirmed_adults || '',
       g.confirmed_children || '',
       g.status,
       g.token,
-      g.notes || '',
       new Date(g.created_at).toLocaleDateString()
     ]);
 
@@ -115,8 +115,12 @@ export default function AdminDashboard() {
             <p>Total RSVPs</p>
           </div>
           <div className="stat-card">
-            <h3>{stats.confirmed}</h3>
-            <p>Confirmed</p>
+            <h3>{stats.attending}</h3>
+            <p>Attending</p>
+          </div>
+          <div className="stat-card">
+            <h3>{stats.declined}</h3>
+            <p>Unable to Attend</p>
           </div>
           <div className="stat-card">
             <h3>{stats.totalAdults}</h3>
@@ -125,10 +129,6 @@ export default function AdminDashboard() {
           <div className="stat-card">
             <h3>{stats.totalChildren}</h3>
             <p>Total Children</p>
-          </div>
-          <div className="stat-card">
-            <h3>{stats.avgAge}</h3>
-            <p>Average Age</p>
           </div>
         </div>
       )}
@@ -153,12 +153,12 @@ export default function AdminDashboard() {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Age</th>
               <th>Relationship</th>
+              <th>Attendance</th>
               <th>Adults</th>
               <th>Children</th>
+              <th>Children Details</th>
               <th>Status</th>
-              <th>Token</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -168,8 +168,12 @@ export default function AdminDashboard() {
                 <td>{guest.full_name}</td>
                 <td>{guest.email}</td>
                 <td>{guest.phone || '-'}</td>
-                <td>{guest.age}</td>
                 <td>{guest.relationship}</td>
+                <td>
+                  <span className={`status-badge ${guest.status === 'declined' ? 'status-declined' : 'status-confirmed'}`}>
+                    {guest.status === 'declined' ? 'Unable to Attend' : 'Attending'}
+                  </span>
+                </td>
                 <td>
                   {guest.confirmed_adults !== null ? guest.confirmed_adults : guest.adults}
                   {guest.confirmed_adults !== null && guest.confirmed_adults !== guest.adults && (
@@ -182,13 +186,13 @@ export default function AdminDashboard() {
                     <small> (was {guest.children})</small>
                   )}
                 </td>
+                <td style={{ maxWidth: '200px', fontSize: '0.85rem' }}>
+                  {guest.notes || '-'}
+                </td>
                 <td>
                   <span className={`status-badge status-${guest.status}`}>
                     {guest.status}
                   </span>
-                </td>
-                <td>
-                  <span className="token-display">{guest.token.substring(0, 8)}...</span>
                 </td>
                 <td>
                   <button

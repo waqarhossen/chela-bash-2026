@@ -19,11 +19,11 @@ export async function GET(request: NextRequest) {
 
     const stats = {
       totalRsvps: guests.length,
-      confirmed: guests.filter(g => g.status === 'confirmed').length,
+      attending: guests.filter(g => g.status !== 'declined').length,
       declined: guests.filter(g => g.status === 'declined').length,
+      confirmed: guests.filter(g => g.status === 'confirmed').length,
       totalAdults: guests.reduce((sum, g) => sum + (g.confirmed_adults ?? g.adults), 0),
       totalChildren: guests.reduce((sum, g) => sum + (g.confirmed_children ?? g.children), 0),
-      avgAge: Math.round(guests.reduce((sum, g) => sum + g.age, 0) / guests.length)
     };
 
     return NextResponse.json({ guests, stats });
