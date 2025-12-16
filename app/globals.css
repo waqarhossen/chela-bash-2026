@@ -179,6 +179,56 @@ body {
   margin-top: 15px;
 }
 
+.attendance-choice-section {
+  margin: 40px 0;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.attendance-instruction {
+  font-size: 1.1rem;
+  color: #374151;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.attendance-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.btn-attendance {
+  flex: 1;
+  max-width: 300px;
+  padding: 20px 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 15px;
+}
+
+.btn-calendar-only {
+  background: white;
+  color: #d97706;
+  border: 2px solid #f59e0b;
+  padding: 12px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.btn-calendar-only:hover {
+  background: #fffbeb;
+  border-color: #d97706;
+  transform: translateY(-1px);
+}
+
 .audio-section {
   margin-top: 10px;
   animation: fadeInUp 0.8s ease-out 0.6s both;
@@ -732,6 +782,15 @@ body {
 
   .button-group {
     grid-template-columns: 1fr;
+  }
+
+  .attendance-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn-attendance {
+    max-width: 100%;
   }
 
   .radio-group {

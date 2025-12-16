@@ -9,13 +9,13 @@ export default function SaveTheDatePage() {
     email: '',
     phone: '',
     relationship: '',
-    attendance: 'attending',
     adults: '1',
     children: '0',
   });
   const [childrenList, setChildrenList] = useState<Array<{name: string, age: string, relationship: string}>>([
     { name: '', age: '', relationship: '' }
   ]);
+  const [attendanceChoice, setAttendanceChoice] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -26,7 +26,7 @@ export default function SaveTheDatePage() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setAttendanceStatus(formData.attendance);
+    setAttendanceStatus(attendanceChoice);
 
     try {
       const childrenDetails = childrenList
@@ -37,7 +37,7 @@ export default function SaveTheDatePage() {
       const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, childrenDetails })
+        body: JSON.stringify({ ...formData, attendance: attendanceChoice, childrenDetails })
       });
 
       const data = await response.json();
@@ -251,21 +251,45 @@ END:VCALENDAR`;
               </audio>
             </div>
 
-            {!showForm && (
-              <div className="button-group">
-                <button onClick={() => setShowForm(true)} className="btn btn-primary btn-large">
-                  RSVP Now
-                </button>
-                <button 
+            <div className="attendance-choice-section">
+              <p className="attendance-instruction">
+                Please select one so we know you received the invitation and can plan properly. 
+                Your response truly helps the family prepare for this special celebration.
+              </p>
+              
+              <div className="attendance-buttons">
+                <button
                   onClick={() => {
-                    const event = {
-                      title: 'Chela Bash 2026 - Celebration of Life',
-                      description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
-                      location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
-                      start: '20260117T110000',
-                      end: '20260117T150000'
-                    };
-                    const icsContent = `BEGIN:VCALENDAR
+                    setAttendanceChoice('attending');
+                    setShowForm(true);
+                  }}
+                  className="btn btn-primary btn-attendance"
+                >
+                  RSVP - I'll be attending
+                </button>
+                
+                <button
+                  onClick={() => {
+                    setAttendanceChoice('unable');
+                    setShowForm(true);
+                  }}
+                  className="btn btn-secondary btn-attendance"
+                >
+                  Unable to attend - Save the date
+                </button>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => {
+                const event = {
+                  title: 'Chela Bash 2026 - Celebration of Life',
+                  description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
+                  location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
+                  start: '20260117T110000',
+                  end: '20260117T150000'
+                };
+                const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
 DTSTART:${event.start}
@@ -275,26 +299,26 @@ DESCRIPTION:${event.description}
 LOCATION:${event.location}
 END:VEVENT
 END:VCALENDAR`;
-                    const blob = new Blob([icsContent], { type: 'text/calendar' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'chela-bash-2026.ics';
-                    a.click();
-                  }}
-                  className="btn btn-secondary btn-calendar"
-                >
-                  Save the Date
-                </button>
-              </div>
-            )}
+                const blob = new Blob([icsContent], { type: 'text/calendar' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'chela-bash-2026.ics';
+                a.click();
+              }}
+              className="btn btn-calendar-only"
+            >
+              Add to Calendar
+            </button>
           </div>
         </div>
 
         {showForm && (
           <div className="rsvp-form-section">
-            <h2 className="form-title">RSVP for Chela Bash 2026</h2>
-            <p className="form-subtitle rsvp-deadline-note">Please RSVP by Sunday, December 28th, 2025 at 5:00 PM</p>
+            <h2 className="form-title">
+              {attendanceChoice === 'attending' ? 'RSVP for Chela Bash 2026' : 'Unable to Attend - Save the Date'}
+            </h2>
+            <p className="form-subtitle rsvp-deadline-note">Please complete by Sunday, December 28th, 2025 at 5:00 PM</p>
 
             {error && <div className="error-message">{error}</div>}
 
@@ -326,35 +350,7 @@ END:VCALENDAR`;
                 </div>
               </div>
 
-              <div className="form-group attendance-group">
-                <label>Will you be attending? *</label>
-                <div className="radio-group">
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="attendance"
-                      value="attending"
-                      checked={formData.attendance === 'attending'}
-                      onChange={handleChange}
-                      required
-                    />
-                    <span>Yes, I'll be attending</span>
-                  </label>
-                  <label className="radio-label">
-                    <input
-                      type="radio"
-                      name="attendance"
-                      value="unable"
-                      checked={formData.attendance === 'unable'}
-                      onChange={handleChange}
-                      required
-                    />
-                    <span>Unable to Attend</span>
-                  </label>
-                </div>
-              </div>
-
-              {formData.attendance === 'attending' && (
+              {attendanceChoice === 'attending' && (
                 <>
                   <div className="form-row">
                     <div className="form-group">
@@ -471,7 +467,7 @@ END:VCALENDAR`;
                 </>
               )}
 
-              {formData.attendance === 'unable' && (
+              {attendanceChoice === 'unable' && (
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="email">Email *</label>
@@ -499,7 +495,7 @@ END:VCALENDAR`;
               )}
 
               <button type="submit" className="btn btn-primary btn-large" disabled={loading}>
-                {loading ? 'Submitting...' : 'Submit RSVP'}
+                {loading ? 'Submitting...' : (attendanceChoice === 'attending' ? 'Submit RSVP' : 'Submit Response')}
               </button>
             </form>
           </div>
