@@ -325,35 +325,33 @@ END:VCALENDAR`;
             {error && <div className="error-message">{error}</div>}
 
             <form onSubmit={handleSubmit} className="rsvp-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="fullName">Primary Guest Name *</label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="relationship">Relationship to Marcela Garcia *</label>
-                  <input
-                    type="text"
-                    id="relationship"
-                    name="relationship"
-                    value={formData.relationship}
-                    onChange={handleChange}
-                    placeholder="e.g., Granddaughter, Friend, Neighbor"
-                    required
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="fullName">Primary Guest Name *</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  required
+                />
               </div>
 
               {attendanceChoice === 'attending' && (
                 <>
+                  <div className="form-group">
+                    <label htmlFor="relationship">Relationship to Marcela Garcia *</label>
+                    <input
+                      type="text"
+                      id="relationship"
+                      name="relationship"
+                      value={formData.relationship}
+                      onChange={handleChange}
+                      placeholder="e.g., Granddaughter, Friend, Neighbor"
+                      required
+                    />
+                  </div>
+
                   <div className="form-row">
                     <div className="form-group">
                       <label htmlFor="email">Email *</label>
@@ -470,29 +468,16 @@ END:VCALENDAR`;
               )}
 
               {attendanceChoice === 'unable' && (
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="email">Email *</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                    />
-                  </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
               )}
 
