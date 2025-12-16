@@ -35,11 +35,11 @@ export async function sendInvitationEmail(
   let htmlContent: string;
 
   if (attendanceStatus === 'attending') {
-    subject = 'Your Personal Invitation - A Life in Celebration - Celebration of Life';
+    subject = 'Your Personal Invitation - Birthday Celebration - Celebration of Life';
     htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
-          <h1 style="margin: 0; font-size: 2.5rem;">A Life in Celebration!</h1>
+          <h1 style="margin: 0; font-size: 2.5rem;">Birthday Celebration!</h1>
           <p style="margin: 10px 0 0 0; font-size: 1.2rem;">Celebration of Life for Marcela Garcia</p>
         </div>
         
@@ -82,11 +82,11 @@ export async function sendInvitationEmail(
       </div>
     `;
   } else {
-    subject = 'Thank You for Your Response - A Life in Celebration';
+    subject = 'Thank You for Your Response - Birthday Celebration';
     htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
-          <h1 style="margin: 0; font-size: 2.5rem;">A Life in Celebration</h1>
+          <h1 style="margin: 0; font-size: 2.5rem;">Birthday Celebration</h1>
           <p style="margin: 10px 0 0 0; font-size: 1.2rem;">Celebration of Life for Marcela Garcia</p>
         </div>
         

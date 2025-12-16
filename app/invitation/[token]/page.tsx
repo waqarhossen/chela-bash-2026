@@ -127,7 +127,7 @@ export default function InvitationPage() {
     <div className="container">
       <div className="invitation-card">
         <h1 style={{ textAlign: 'center', color: '#d97706', marginBottom: '30px' }}>
-          You're Invited to A Life in Celebration!
+          You're Invited to Birthday Celebration!
         </h1>
 
         <p style={{ fontSize: '1.2rem', textAlign: 'center', marginBottom: '30px' }}>

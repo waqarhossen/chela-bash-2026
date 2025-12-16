@@ -346,7 +346,7 @@ export default function AdminDashboard() {
       <div className="admin-header">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h1>A Life in Celebration - Admin Dashboard</h1>
+            <h1>Birthday Celebration - Admin Dashboard</h1>
             <p style={{ color: '#6b7280', marginTop: '10px' }}>
               Logged in as: <strong>{username}</strong> ({userRole})
             </p>

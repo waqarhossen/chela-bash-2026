@@ -144,7 +144,7 @@ export default function SaveTheDatePage() {
                 <button 
                   onClick={() => {
                     const event = {
-                      title: 'A Life in Celebration - Celebration of Life',
+                      title: 'Birthday Celebration - Celebration of Life',
                       description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
                       location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
                       start: '20260117T110000',
@@ -199,7 +199,7 @@ END:VCALENDAR`;
       <div className="home-container">
         <div className="home-hero">
           <div className="hero-content">
-            <h1 className="hero-title">A Life in Celebration!</h1>
+            <h1 className="hero-title">Birthday Celebration!</h1>
             
             <div className="hero-image-wrapper-inline">
               <div className="image-frame">
@@ -290,7 +290,7 @@ END:VCALENDAR`;
         {showForm && (
           <div className="rsvp-form-section">
             <h2 className="form-title">
-              {attendanceChoice === 'attending' ? 'RSVP for A Life in Celebration' : 'Unable to Attend'}
+              {attendanceChoice === 'attending' ? 'RSVP for Birthday Celebration' : 'Unable to Attend'}
             </h2>
             <p className="form-subtitle rsvp-deadline-note">Please complete by Sunday, December 28th, 2025 at 5:00 PM</p>
 
