@@ -148,14 +148,18 @@ END:VCALENDAR`;
           <div className="success-card">
             <div className="success-icon">🎉</div>
             <h2>Thank You for Your RSVP!</h2>
-            <p className="success-main-text">
-              Your presence means the world to us and to our beloved grandmother. 
-              We are truly blessed to have you join us in celebrating this incredible milestone.
-            </p>
-            <p className="success-sub-text">
-              Your response helps us plan every detail of this unforgettable 98th Celebration of Life 
-              with love and care. We can't wait to create beautiful memories together!
-            </p>
+            
+            <div className="family-message">
+              <p><strong>Dear Family and Friends,</strong></p>
+              
+              <p>Thank you for RSVPing to Marcela Garcia's Celebration of Life. Your response helps us coordinate a meaningful gathering that honors not only Marcela, but the entire generation of women who carried this family forward.</p>
+              
+              <p>You'll notice we asked for details about the children attending, especially those under 16. This was intentional. This celebration is bigger than one person. It is a tribute to the women who created our roots, our culture, and our identity. Marcela is one of them, but she stands among many powerful matriarchs who sacrificed, nurtured, protected, and built the foundation we stand on today.</p>
+              
+              <p>Including the young ones is our way of connecting legacy to future. We want them present, we want them visible, and we want them to understand that they come from strength. Their attendance honors the women who came before them, and their presence keeps that history alive.</p>
+              
+              <p>Thank you again for confirming your attendance. We look forward to celebrating together as one unified family, bridging generations with love, respect, and gratitude.</p>
+            </div>
             
             <div className="success-next-steps">
               <h3>What's Next?</h3>
@@ -163,6 +167,11 @@ END:VCALENDAR`;
                 <span className="step-number">1</span>
                 <p>You'll receive a personalized invitation link via email</p>
               </div>
+            </div>
+            
+            <div className="dedication">
+              <h3>In Honor of the Women Who Built Us</h3>
+              <p>From the García matriarchs to every woman who crossed oceans, borders, seasons, and struggles so the next generation could stand taller. This celebration is dedicated to the powerful women whose courage shaped our family, our community, and our future.</p>
             </div>
             
             <p className="success-closing">
