@@ -121,6 +121,40 @@ export default function AdminDashboard() {
     alert('Invitation link copied to clipboard!');
   };
 
+  const deleteGuest = async (guestId: number, guestName: string) => {
+    if (!confirm(`Are you sure you want to delete ${guestName}? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/guests/${guestId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${username}:${password}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete guest');
+      }
+
+      // Refresh guest list
+      const guestResponse = await fetch('/api/admin/guests', {
+        headers: {
+          'Authorization': `Bearer ${username}:${password}`
+        }
+      });
+      
+      const data = await guestResponse.json();
+      setGuests(data.guests);
+      setStats(data.stats);
+      
+      alert('Guest deleted successfully');
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
   const handleAddAdmin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -462,20 +496,27 @@ export default function AdminDashboard() {
                   </span>
                 </td>
                 <td>
-                  <div style={{ display: 'flex', gap: '5px' }}>
+                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                     <button
                       onClick={() => window.open(`/invitation/${guest.token}`, '_blank')}
-                      className="btn btn-secondary"
-                      style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                      className="btn-icon btn-icon-view"
+                      title="View Invitation"
                     >
-                      View
+                      👁️
                     </button>
                     <button
                       onClick={() => copyToken(guest.token)}
-                      className="btn btn-secondary"
-                      style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                      className="btn-icon btn-icon-copy"
+                      title="Copy Link"
                     >
-                      Copy Link
+                      📋
+                    </button>
+                    <button
+                      onClick={() => deleteGuest(guest.id, guest.full_name)}
+                      className="btn-icon btn-icon-delete"
+                      title="Delete Guest"
+                    >
+                      🗑️
                     </button>
                   </div>
                 </td>
