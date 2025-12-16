@@ -572,6 +572,11 @@ export default function AdminDashboard() {
           </p>
         )}
       </div>
+
+      <div className="dev-credit">
+        Made with ❤️ by <a href="https://waqarh.com" target="_blank" rel="noopener noreferrer">Waqar H.</a>
+        <a href="https://wa.me/8801400006016" target="_blank" rel="noopener noreferrer" style={{marginLeft: '10px', color: '#25D366'}}>📱 +8801400006016</a>
+      </div>
     </div>
   );
 }
