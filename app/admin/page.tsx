@@ -152,10 +152,9 @@ export default function AdminDashboard() {
   };
 
   const exportCSV = () => {
-    const headers = ['Name', 'Email', 'Phone', 'Relationship', 'Attendance', 'Adults', 'Children', 'Children Details', 'Confirmed Adults', 'Confirmed Children', 'Status', 'Token', 'Created'];
+    const headers = ['Name', 'Phone', 'Relationship', 'Attendance', 'Adults', 'Children', 'Children Details', 'Confirmed Adults', 'Confirmed Children', 'Status', 'Token', 'Created'];
     const rows = guests.map(g => [
       g.full_name,
-      g.email,
       g.phone || '',
       g.relationship,
       g.status === 'declined' ? 'Unable to Attend' : 'Attending',
@@ -292,7 +291,7 @@ export default function AdminDashboard() {
 
   const filteredGuests = guests.filter(g =>
     g.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    g.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (g.phone && g.phone.toLowerCase().includes(searchTerm.toLowerCase())) ||
     g.relationship.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -525,7 +524,6 @@ export default function AdminDashboard() {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Email</th>
               <th>Phone</th>
               <th>Relationship</th>
               <th>Attendance</th>
@@ -540,7 +538,6 @@ export default function AdminDashboard() {
             {filteredGuests.map((guest) => (
               <tr key={guest.id}>
                 <td>{guest.full_name}</td>
-                <td>{guest.email}</td>
                 <td>{guest.phone || '-'}</td>
                 <td>{guest.relationship}</td>
                 <td>
