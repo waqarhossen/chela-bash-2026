@@ -156,26 +156,15 @@ END:VCALENDAR`;
               Your response helps us plan every detail of this unforgettable 98th Celebration of Life 
               with love and care. We can't wait to create beautiful memories together!
             </p>
-            <div className="token-box">
-              <p><strong>Your Personal Invitation Token:</strong></p>
-              <code className="token-code">{token}</code>
-              <p className="token-instruction">Please save this special token safely</p>
-            </div>
+            
             <div className="success-next-steps">
               <h3>What's Next?</h3>
               <div className="next-step-item">
                 <span className="step-number">1</span>
-                <p>Keep this token in a safe place</p>
-              </div>
-              <div className="next-step-item">
-                <span className="step-number">2</span>
                 <p>You'll receive a personalized invitation link via email</p>
               </div>
-              <div className="next-step-item">
-                <span className="step-number">3</span>
-                <p>Use your token to access full event details and confirm your attendance</p>
-              </div>
             </div>
+            
             <p className="success-closing">
               With gratitude and excitement,<br />
               <strong>The Family</strong> ❤️
