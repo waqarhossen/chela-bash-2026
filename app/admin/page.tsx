@@ -233,6 +233,16 @@ export default function AdminDashboard() {
     g.relationship.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  if (loading) {
+    return (
+      <div className="container">
+        <div style={{ textAlign: 'center', padding: '100px 20px' }}>
+          <h2>Loading...</h2>
+        </div>
+      </div>
+    );
+  }
+
   if (!authenticated) {
     return (
       <div className="container">
