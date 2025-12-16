@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
 import { nanoid } from 'nanoid';
+import { sendInvitationEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { fullName, email, phone, relationship, attendance, adults, children, childrenDetails } = body;
 
-    if (!fullName || !email || !relationship || !attendance) {
+    if (!fullName || !email || !attendance) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -24,11 +25,19 @@ export async function POST(request: NextRequest) {
         full_name, email, phone, age, relationship, 
         adults, children, notes, token, status
       ) VALUES (
-        ${fullName}, ${email}, ${phone || null}, ${0}, ${relationship},
+        ${fullName}, ${email}, ${phone || null}, ${0}, ${relationship || 'Not specified'},
         ${finalAdults}, ${finalChildren}, ${childrenDetails || null}, ${token}, ${status}
       )
       RETURNING id, token
     `;
+
+    // Send email invitation
+    try {
+      await sendInvitationEmail(email, fullName, token, attendance);
+    } catch (emailError) {
+      console.error('Email sending failed:', emailError);
+      // Don't fail the RSVP if email fails
+    }
 
     return NextResponse.json({
       success: true,
