@@ -517,7 +517,7 @@ export default function AdminDashboard() {
                       onClick={() => setDropdownOpen(dropdownOpen === guest.id ? null : guest.id)}
                       className="btn-dropdown"
                     >
-                      ⋯
+                      ⋮
                     </button>
                     {dropdownOpen === guest.id && (
                       <div className="dropdown-menu">
