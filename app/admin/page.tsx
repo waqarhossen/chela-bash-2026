@@ -2,6 +2,51 @@
 
 import { useEffect, useState } from 'react';
 
+interface CustomAlertProps {
+  message: string;
+  type: 'success' | 'error' | 'info';
+  onClose: () => void;
+}
+
+function CustomAlert({ message, type, onClose }: CustomAlertProps) {
+  const bgColor = type === 'success' ? '#d4edda' : type === 'error' ? '#f8d7da' : '#d1ecf1';
+  const textColor = type === 'success' ? '#155724' : type === 'error' ? '#721c24' : '#0c5460';
+  const borderColor = type === 'success' ? '#c3e6cb' : type === 'error' ? '#f5c6cb' : '#bee5eb';
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      backgroundColor: bgColor,
+      color: textColor,
+      border: `1px solid ${borderColor}`,
+      borderRadius: '8px',
+      padding: '15px 20px',
+      maxWidth: '400px',
+      zIndex: 1000,
+      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>{message}</span>
+        <button
+          onClick={onClose}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontSize: '18px',
+            cursor: 'pointer',
+            marginLeft: '10px',
+            color: textColor
+          }}
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   const [guests, setGuests] = useState<any[]>([]);
   const [stats, setStats] = useState<any>(null);
@@ -17,6 +62,12 @@ export default function AdminDashboard() {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [passwordChange, setPasswordChange] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
   const [dropdownOpen, setDropdownOpen] = useState<number | null>(null);
+  const [alert, setAlert] = useState<{message: string, type: 'success' | 'error' | 'info'} | null>(null);
+
+  const showAlert = (message: string, type: 'success' | 'error' | 'info') => {
+    setAlert({ message, type });
+    setTimeout(() => setAlert(null), 3000);
+  };
 
   useEffect(() => {
     // Check for saved session
@@ -130,7 +181,7 @@ export default function AdminDashboard() {
   const copyToken = (token: string) => {
     const url = `${window.location.origin}/invitation/${token}`;
     navigator.clipboard.writeText(url);
-    alert('Invitation link copied to clipboard!');
+    showAlert('Invitation link copied to clipboard!', 'success');
   };
 
   const deleteGuest = async (guestId: number, guestName: string) => {
@@ -161,9 +212,9 @@ export default function AdminDashboard() {
       setGuests(data.guests);
       setStats(data.stats);
       
-      alert('Guest deleted successfully');
+      showAlert('Guest deleted successfully', 'success');
     } catch (err: any) {
-      alert(err.message);
+      showAlert(err.message, 'error');
     }
   };
 
@@ -183,11 +234,11 @@ export default function AdminDashboard() {
         throw new Error('Failed to add admin');
       }
 
-      alert('Admin user added successfully!');
+      showAlert('Admin user added successfully!', 'success');
       setShowAddAdmin(false);
       setNewAdmin({ username: '', password: '', role: 'admin' });
     } catch (err: any) {
-      alert(err.message);
+      showAlert(err.message, 'error');
     }
   };
 
@@ -195,12 +246,12 @@ export default function AdminDashboard() {
     e.preventDefault();
     
     if (passwordChange.newPassword !== passwordChange.confirmPassword) {
-      alert('New passwords do not match!');
+      showAlert('New passwords do not match!', 'error');
       return;
     }
 
     if (passwordChange.currentPassword !== password) {
-      alert('Current password is incorrect!');
+      showAlert('Current password is incorrect!', 'error');
       return;
     }
 
@@ -218,13 +269,13 @@ export default function AdminDashboard() {
         throw new Error('Failed to change password');
       }
 
-      alert('Password changed successfully! Please login again.');
+      showAlert('Password changed successfully! Please login again.', 'success');
       setPassword(passwordChange.newPassword);
       sessionStorage.setItem('adminPassword', passwordChange.newPassword);
       setShowChangePassword(false);
       setPasswordChange({ currentPassword: '', newPassword: '', confirmPassword: '' });
     } catch (err: any) {
-      alert(err.message);
+      showAlert(err.message, 'error');
     }
   };
 
@@ -577,6 +628,14 @@ export default function AdminDashboard() {
         Made with ❤️ by <a href="https://waqarh.com" target="_blank" rel="noopener noreferrer">Waqar H.</a>
         <a href="https://wa.me/8801400006016" target="_blank" rel="noopener noreferrer" style={{marginLeft: '10px', color: '#25D366'}}>📱 +8801400006016</a>
       </div>
+
+      {alert && (
+        <CustomAlert
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert(null)}
+        />
+      )}
     </div>
   );
 }
