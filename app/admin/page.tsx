@@ -32,7 +32,13 @@ export default function AdminDashboard() {
     }
 
     // Close dropdown when clicking outside
-    const handleClickOutside = () => setDropdownOpen(null);
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.dropdown-container')) {
+        setDropdownOpen(null);
+      }
+    };
+    
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
@@ -514,13 +520,16 @@ export default function AdminDashboard() {
                 <td>
                   <div className="dropdown-container">
                     <button
-                      onClick={() => setDropdownOpen(dropdownOpen === guest.id ? null : guest.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDropdownOpen(dropdownOpen === guest.id ? null : guest.id);
+                      }}
                       className="btn-dropdown"
                     >
                       ⋮
                     </button>
                     {dropdownOpen === guest.id && (
-                      <div className="dropdown-menu">
+                      <div className="dropdown-menu" onClick={(e) => e.stopPropagation()}>
                         <button
                           onClick={() => {
                             window.open(`/invitation/${guest.token}`, '_blank');
