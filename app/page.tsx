@@ -88,46 +88,9 @@ export default function SaveTheDatePage() {
                 Your response helps us with our planning, and we truly appreciate you letting us know.
               </p>
               <p className="success-sub-text">
-                Even though you can't attend, please save the date and keep our beloved grandmother 
+                Even though you can't attend, please keep our beloved grandmother 
                 in your thoughts on this special day.
               </p>
-              <div className="save-date-box">
-                <h3>Save the Date</h3>
-                <p><strong>Saturday, January 17th, 2026</strong></p>
-                <p>11:00 AM - 3:00 PM</p>
-                <p>Rancho Cucamonga, California</p>
-                <button 
-                  onClick={() => {
-                    const event = {
-                      title: 'A Life in Celebration - Celebration of Life',
-                      description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
-                      location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
-                      start: '20260117T110000',
-                      end: '20260117T150000'
-                    };
-                    const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-DTSTART:${event.start}
-DTEND:${event.end}
-SUMMARY:${event.title}
-DESCRIPTION:${event.description}
-LOCATION:${event.location}
-END:VEVENT
-END:VCALENDAR`;
-                    const blob = new Blob([icsContent], { type: 'text/calendar' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'chela-bash-2026.ics';
-                    a.click();
-                  }}
-                  className="btn btn-primary"
-                  style={{ marginTop: '20px' }}
-                >
-                  Add to Calendar
-                </button>
-              </div>
               <p className="success-closing">
                 With warm regards,<br />
                 <strong>The Family</strong> ❤️
@@ -290,7 +253,7 @@ END:VCALENDAR`;
                   }}
                   className="btn btn-secondary btn-attendance"
                 >
-                  Unable to attend - Save the date
+                  Unable to attend
                 </button>
               </div>
             </div>
