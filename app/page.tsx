@@ -280,16 +280,17 @@ END:VCALENDAR`;
               </div>
             </div>
 
-            <button 
-              onClick={() => {
-                const event = {
-                  title: 'Chela Bash 2026 - Celebration of Life',
-                  description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
-                  location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
-                  start: '20260117T110000',
-                  end: '20260117T150000'
-                };
-                const icsContent = `BEGIN:VCALENDAR
+            {!showForm && (
+              <button 
+                onClick={() => {
+                  const event = {
+                    title: 'Chela Bash 2026 - Celebration of Life',
+                    description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
+                    location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
+                    start: '20260117T110000',
+                    end: '20260117T150000'
+                  };
+                  const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
 DTSTART:${event.start}
@@ -299,17 +300,18 @@ DESCRIPTION:${event.description}
 LOCATION:${event.location}
 END:VEVENT
 END:VCALENDAR`;
-                const blob = new Blob([icsContent], { type: 'text/calendar' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'chela-bash-2026.ics';
-                a.click();
-              }}
-              className="btn btn-calendar-only"
-            >
-              Add to Calendar
-            </button>
+                  const blob = new Blob([icsContent], { type: 'text/calendar' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'chela-bash-2026.ics';
+                  a.click();
+                }}
+                className="btn btn-calendar-only"
+              >
+                Add to Calendar
+              </button>
+            )}
           </div>
         </div>
 
