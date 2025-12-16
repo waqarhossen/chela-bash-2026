@@ -67,7 +67,7 @@ export async function sendInvitationEmail(
           <p>With love and gratitude,<br><strong>The García Family</strong></p>
           <p style="font-size: 12px; margin-top: 20px;">
             Made with ❤️ by <a href="https://waqarh.com" style="color: #059669; text-decoration: none;">Waqar H.</a>
-            <a href="https://wa.me/8801400006016" style="color: #25D366; text-decoration: none; margin-left: 10px;">📱 +8801400006016</a>
+            <a href="https://wa.me/8801400006016" style="color: #25D366; text-decoration: none; margin-left: 10px;">💬</a>
           </p>
         </div>
       </div>
@@ -100,7 +100,7 @@ export async function sendInvitationEmail(
           <p>With warm regards,<br><strong>The García Family</strong></p>
           <p style="font-size: 12px; margin-top: 20px;">
             Made with ❤️ by <a href="https://waqarh.com" style="color: #059669; text-decoration: none;">Waqar H.</a>
-            <a href="https://wa.me/8801400006016" style="color: #25D366; text-decoration: none; margin-left: 10px;">📱 +8801400006016</a>
+            <a href="https://wa.me/8801400006016" style="color: #25D366; text-decoration: none; margin-left: 10px;">💬</a>
           </p>
         </div>
       </div>
