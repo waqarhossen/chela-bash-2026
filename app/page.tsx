@@ -141,11 +141,37 @@ export default function SaveTheDatePage() {
             
             {attendanceStatus === 'attending' && (
               <div className="success-next-steps">
-                <h3>What's Next?</h3>
-                <div className="next-step-item">
-                  <span className="step-number">1</span>
-                  <p>You'll receive a personalized invitation link via email</p>
-                </div>
+                <button 
+                  onClick={() => {
+                    const event = {
+                      title: 'A Life in Celebration - Celebration of Life',
+                      description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
+                      location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
+                      start: '20260117T110000',
+                      end: '20260117T150000'
+                    };
+                    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description}
+LOCATION:${event.location}
+END:VEVENT
+END:VCALENDAR`;
+                    const blob = new Blob([icsContent], { type: 'text/calendar' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'a-life-in-celebration.ics';
+                    a.click();
+                  }}
+                  className="btn btn-primary btn-large"
+                  style={{ width: '100%', padding: '15px 30px', fontSize: '1.2rem', marginTop: '20px' }}
+                >
+                  📅 Add to Calendar
+                </button>
               </div>
             )}
             
@@ -258,38 +284,6 @@ export default function SaveTheDatePage() {
               </div>
             </div>
 
-            {!showForm && (
-              <button 
-                onClick={() => {
-                  const event = {
-                    title: 'A Life in Celebration - Celebration of Life',
-                    description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
-                    location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
-                    start: '20260117T110000',
-                    end: '20260117T150000'
-                  };
-                  const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-DTSTART:${event.start}
-DTEND:${event.end}
-SUMMARY:${event.title}
-DESCRIPTION:${event.description}
-LOCATION:${event.location}
-END:VEVENT
-END:VCALENDAR`;
-                  const blob = new Blob([icsContent], { type: 'text/calendar' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'chela-bash-2026.ics';
-                  a.click();
-                }}
-                className="btn btn-calendar-only"
-              >
-                Add to Calendar
-              </button>
-            )}
           </div>
         </div>
 
