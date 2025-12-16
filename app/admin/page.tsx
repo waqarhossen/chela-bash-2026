@@ -16,6 +16,7 @@ export default function AdminDashboard() {
   const [newAdmin, setNewAdmin] = useState({ username: '', password: '', role: 'admin' });
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [passwordChange, setPasswordChange] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+  const [dropdownOpen, setDropdownOpen] = useState<number | null>(null);
 
   useEffect(() => {
     // Check for saved session
@@ -29,6 +30,11 @@ export default function AdminDashboard() {
     } else {
       setLoading(false);
     }
+
+    // Close dropdown when clicking outside
+    const handleClickOutside = () => setDropdownOpen(null);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   const fetchGuestData = async (user: string, pass: string) => {
@@ -506,28 +512,44 @@ export default function AdminDashboard() {
                   </span>
                 </td>
                 <td>
-                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                  <div className="dropdown-container">
                     <button
-                      onClick={() => window.open(`/invitation/${guest.token}`, '_blank')}
-                      className="btn-icon btn-icon-view"
-                      title="View Invitation"
+                      onClick={() => setDropdownOpen(dropdownOpen === guest.id ? null : guest.id)}
+                      className="btn-dropdown"
                     >
-                      ⚬
+                      ⋯
                     </button>
-                    <button
-                      onClick={() => copyToken(guest.token)}
-                      className="btn-icon btn-icon-copy"
-                      title="Copy Link"
-                    >
-                      ⧉
-                    </button>
-                    <button
-                      onClick={() => deleteGuest(guest.id, guest.full_name)}
-                      className="btn-icon btn-icon-delete"
-                      title="Delete Guest"
-                    >
-                      ✕
-                    </button>
+                    {dropdownOpen === guest.id && (
+                      <div className="dropdown-menu">
+                        <button
+                          onClick={() => {
+                            window.open(`/invitation/${guest.token}`, '_blank');
+                            setDropdownOpen(null);
+                          }}
+                          className="dropdown-item"
+                        >
+                          View
+                        </button>
+                        <button
+                          onClick={() => {
+                            copyToken(guest.token);
+                            setDropdownOpen(null);
+                          }}
+                          className="dropdown-item"
+                        >
+                          Copy Link
+                        </button>
+                        <button
+                          onClick={() => {
+                            deleteGuest(guest.id, guest.full_name);
+                            setDropdownOpen(null);
+                          }}
+                          className="dropdown-item dropdown-item-delete"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </td>
               </tr>
