@@ -32,17 +32,28 @@ export async function POST(request: NextRequest) {
     `;
 
     // Send email invitation
+    console.log('Attempting to send email to:', email);
+    let emailSent = false;
     try {
-      await sendInvitationEmail(email, fullName, token, attendance);
+      const emailResult = await sendInvitationEmail(email, fullName, token, attendance);
+      console.log('Email result:', emailResult);
+      
+      if (emailResult.success) {
+        emailSent = true;
+        console.log('Email sent successfully');
+      } else {
+        console.error('Email sending failed but RSVP saved:', emailResult.error);
+      }
     } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-      // Don't fail the RSVP if email fails
+      console.error('Email sending failed with exception:', emailError);
+      // Don't fail the RSVP if email fails - user can still get invitation link manually
     }
 
     return NextResponse.json({
       success: true,
       token: result[0].token,
-      message: 'RSVP submitted successfully'
+      message: emailSent ? 'RSVP submitted successfully! Check your email for invitation details.' : 'RSVP submitted successfully! Email delivery may be delayed.',
+      emailSent
     });
   } catch (error: any) {
     console.error('RSVP error:', error);

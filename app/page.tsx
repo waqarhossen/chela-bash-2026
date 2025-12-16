@@ -99,7 +99,7 @@ export default function SaveTheDatePage() {
                 <button 
                   onClick={() => {
                     const event = {
-                      title: 'Chela Bash 2026 - Celebration of Life',
+                      title: 'A Life in Celebration - Celebration of Life',
                       description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
                       location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
                       start: '20260117T110000',
@@ -147,27 +147,44 @@ END:VCALENDAR`;
         <div className="home-container">
           <div className="success-card">
             <div className="success-icon">🎉</div>
-            <h2>Thank You for Your RSVP!</h2>
+            <h2>
+              {attendanceStatus === 'attending' 
+                ? 'Thank You for Your RSVP - Save the Date!' 
+                : 'Thank You for Your Response!'
+              }
+            </h2>
             
             <div className="family-message">
               <p><strong>Dear Family and Friends,</strong></p>
               
-              <p>Thank you for RSVPing to Marcela Garcia's Celebration of Life. Your response helps us coordinate a meaningful gathering that honors not only Marcela, but the entire generation of women who carried this family forward.</p>
-              
-              <p>You'll notice we asked for details about the children attending, especially those under 16. This was intentional. This celebration is bigger than one person. It is a tribute to the women who created our roots, our culture, and our identity. Marcela is one of them, but she stands among many powerful matriarchs who sacrificed, nurtured, protected, and built the foundation we stand on today.</p>
-              
-              <p>Including the young ones is our way of connecting legacy to future. We want them present, we want them visible, and we want them to understand that they come from strength. Their attendance honors the women who came before them, and their presence keeps that history alive.</p>
-              
-              <p>Thank you again for confirming your attendance. We look forward to celebrating together as one unified family, bridging generations with love, respect, and gratitude.</p>
+              {attendanceStatus === 'attending' ? (
+                <>
+                  <p>Thank you for RSVPing to Marcela Garcia's Celebration of Life. Your response helps us coordinate a meaningful gathering that honors not only Marcela, but the entire generation of women who carried this family forward.</p>
+                  
+                  <p>You'll notice we asked for details about the children attending, especially those under 16. This was intentional. This celebration is bigger than one person. It is a tribute to the women who created our roots, our culture, and our identity. Marcela is one of them, but she stands among many powerful matriarchs who sacrificed, nurtured, protected, and built the foundation we stand on today.</p>
+                  
+                  <p>Including the young ones is our way of connecting legacy to future. We want them present, we want them visible, and we want them to understand that they come from strength. Their attendance honors the women who came before them, and their presence keeps that history alive.</p>
+                  
+                  <p>Thank you again for confirming your attendance. We look forward to celebrating together as one unified family, bridging generations with love, respect, and gratitude.</p>
+                </>
+              ) : (
+                <>
+                  <p>Thank you for letting us know you won't be able to join us for Marcela Garcia's Celebration of Life. We understand that not everyone can attend, and we appreciate you taking the time to respond.</p>
+                  
+                  <p>Even though you can't be with us in person, please keep Marcela and our family in your thoughts on this special day. Your connection to our family remains strong regardless of distance or circumstances.</p>
+                </>
+              )}
             </div>
             
-            <div className="success-next-steps">
-              <h3>What's Next?</h3>
-              <div className="next-step-item">
-                <span className="step-number">1</span>
-                <p>You'll receive a personalized invitation link via email</p>
+            {attendanceStatus === 'attending' && (
+              <div className="success-next-steps">
+                <h3>What's Next?</h3>
+                <div className="next-step-item">
+                  <span className="step-number">1</span>
+                  <p>You'll receive a personalized invitation link via email</p>
+                </div>
               </div>
-            </div>
+            )}
             
             <div className="dedication">
               <h3>In Honor of the Women Who Built Us</h3>
@@ -193,7 +210,7 @@ END:VCALENDAR`;
       <div className="home-container">
         <div className="home-hero">
           <div className="hero-content">
-            <h1 className="hero-title">Chela Bash 2026!</h1>
+            <h1 className="hero-title">A Life in Celebration!</h1>
             
             <div className="hero-image-wrapper-inline">
               <div className="image-frame">
@@ -282,7 +299,7 @@ END:VCALENDAR`;
               <button 
                 onClick={() => {
                   const event = {
-                    title: 'Chela Bash 2026 - Celebration of Life',
+                    title: 'A Life in Celebration - Celebration of Life',
                     description: 'Celebration of Life for our beloved 98-year-old Grandmother at Epic Events Center',
                     location: 'Epic Events Center, 12469 Foothill Boulevard, Rancho Cucamonga, CA 91739',
                     start: '20260117T110000',
@@ -316,7 +333,7 @@ END:VCALENDAR`;
         {showForm && (
           <div className="rsvp-form-section">
             <h2 className="form-title">
-              {attendanceChoice === 'attending' ? 'RSVP for Chela Bash 2026' : 'Unable to Attend - Save the Date'}
+              {attendanceChoice === 'attending' ? 'RSVP for A Life in Celebration' : 'Unable to Attend'}
             </h2>
             <p className="form-subtitle rsvp-deadline-note">Please complete by Sunday, December 28th, 2025 at 5:00 PM</p>
 
@@ -460,8 +477,6 @@ END:VCALENDAR`;
                       + Add Child
                     </button>
                   </div>
-
-                  <p className="food-note">Food will be served at noon and cocktails will follow.</p>
                 </>
               )}
 

@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: parseInt(process.env.SMTP_PORT || '465'),
+  port: parseInt(process.env.SMTP_PORT || '587'),
   secure: process.env.SMTP_SECURE === 'true',
   auth: {
     user: process.env.SMTP_USER,
@@ -19,18 +19,27 @@ export async function sendInvitationEmail(
   token: string,
   attendanceStatus: string
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const invitationUrl = `${baseUrl}/invitation/${token}`;
+  try {
+    console.log('Sending email to:', guestEmail);
+    console.log('SMTP Config:', {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      user: process.env.SMTP_USER,
+      from: process.env.EMAIL_FROM
+    });
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const invitationUrl = `${baseUrl}/invitation/${token}`;
 
   let subject: string;
   let htmlContent: string;
 
   if (attendanceStatus === 'attending') {
-    subject = 'Your Personal Invitation - Chela Bash 2026 Celebration of Life';
+    subject = 'Your Personal Invitation - A Life in Celebration - Celebration of Life';
     htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
-          <h1 style="margin: 0; font-size: 2.5rem;">Chela Bash 2026!</h1>
+          <h1 style="margin: 0; font-size: 2.5rem;">A Life in Celebration!</h1>
           <p style="margin: 10px 0 0 0; font-size: 1.2rem;">Celebration of Life for Marcela Garcia</p>
         </div>
         
@@ -73,11 +82,11 @@ export async function sendInvitationEmail(
       </div>
     `;
   } else {
-    subject = 'Thank You for Your Response - Chela Bash 2026';
+    subject = 'Thank You for Your Response - A Life in Celebration';
     htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
-          <h1 style="margin: 0; font-size: 2.5rem;">Chela Bash 2026</h1>
+          <h1 style="margin: 0; font-size: 2.5rem;">A Life in Celebration</h1>
           <p style="margin: 10px 0 0 0; font-size: 1.2rem;">Celebration of Life for Marcela Garcia</p>
         </div>
         
@@ -108,18 +117,28 @@ export async function sendInvitationEmail(
   }
 
   const mailOptions = {
-    from: `"${process.env.EMAIL_FROM_NAME}" <${process.env.EMAIL_FROM}>`,
+    from: `"${process.env.EMAIL_FROM_NAME || 'Chela Bash 2026'}" <${process.env.EMAIL_FROM || process.env.SMTP_USER}>`,
     to: guestEmail,
     subject: subject,
     html: htmlContent,
   };
 
+  console.log('Mail options:', {
+    from: mailOptions.from,
+    to: mailOptions.to,
+    subject: mailOptions.subject
+  });
+
   try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Email sent successfully to ${guestEmail}`);
-    return { success: true };
+    const result = await transporter.sendMail(mailOptions);
+    console.log(`Email sent successfully to ${guestEmail}`, result.messageId);
+    return { success: true, messageId: result.messageId };
   } catch (error) {
     console.error('Email sending failed:', error);
     return { success: false, error: error };
+  }
+  } catch (outerError) {
+    console.error('Email function error:', outerError);
+    return { success: false, error: outerError };
   }
 }
