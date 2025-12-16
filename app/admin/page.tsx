@@ -502,21 +502,21 @@ export default function AdminDashboard() {
                       className="btn-icon btn-icon-view"
                       title="View Invitation"
                     >
-                      👁️
+                      ⚬
                     </button>
                     <button
                       onClick={() => copyToken(guest.token)}
                       className="btn-icon btn-icon-copy"
                       title="Copy Link"
                     >
-                      📋
+                      ⧉
                     </button>
                     <button
                       onClick={() => deleteGuest(guest.id, guest.full_name)}
                       className="btn-icon btn-icon-delete"
                       title="Delete Guest"
                     >
-                      🗑️
+                      ✕
                     </button>
                   </div>
                 </td>
