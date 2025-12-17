@@ -316,7 +316,7 @@ END:VCALENDAR`;
               {attendanceChoice === 'attending' && (
                 <>
                   <div className="form-group">
-                    <label htmlFor="relationship">Relationship to Marcela Garcia *</label>
+                    <label htmlFor="relationship">{t('relationship')}</label>
                     <input
                       type="text"
                       id="relationship"
@@ -342,7 +342,7 @@ END:VCALENDAR`;
 
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="adults">Number of Adults (age 16 and over) *</label>
+                      <label htmlFor="adults">{t('adults')}</label>
                       <input
                         type="number"
                         id="adults"
@@ -356,7 +356,7 @@ END:VCALENDAR`;
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="children">Number of Children (under 16) *</label>
+                      <label htmlFor="children">{t('children')}</label>
                       <input
                         type="number"
                         id="children"
@@ -376,7 +376,7 @@ END:VCALENDAR`;
                       <div key={index} className="child-entry">
                         <div className="child-fields">
                           <div className="form-group">
-                            <label htmlFor={`childName${index}`}>Name</label>
+                            <label htmlFor={`childName${index}`}>{t('childName')}</label>
                             <input
                               type="text"
                               id={`childName${index}`}
@@ -386,7 +386,7 @@ END:VCALENDAR`;
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor={`childAge${index}`}>Age</label>
+                            <label htmlFor={`childAge${index}`}>{t('childAge')}</label>
                             <input
                               type="text"
                               id={`childAge${index}`}
@@ -396,7 +396,7 @@ END:VCALENDAR`;
                             />
                           </div>
                           <div className="form-group">
-                            <label htmlFor={`childRel${index}`}>Relationship to Marcela Garcia</label>
+                            <label htmlFor={`childRel${index}`}>{t('childRelationship')}</label>
                             <input
                               type="text"
                               id={`childRel${index}`}
