@@ -43,8 +43,12 @@ export const translations = {
     thankYouRsvp: "Thank You for Your RSVP - Save the Date!",
     thankYouResponse: "Thank You for Your Response!",
     dearFamily: "Dear Family and Friends,",
-    attendingMessage: "Thank you for RSVPing to Marcela Garcia's Celebration of Life. Your response helps us coordinate a meaningful gathering that honors not only Marcela, but the entire generation of women who carried this family forward.",
-    unableMessage: "Thank you for letting us know you won't be able to join us for Marcela Garcia's Celebration of Life. We understand that not everyone can attend, and we appreciate you taking the time to respond.",
+    attendingMessage1: "Thank you for RSVPing to Marcela Garcia's Celebration of Life. Your response helps us coordinate a meaningful gathering that honors not only Marcela, but the entire generation of women who carried this family forward.",
+    attendingMessage2: "You'll notice we asked for details about the children attending, especially those under 16. This was intentional. This celebration is bigger than one person. It is a tribute to the women who created our roots, our culture, and our identity. Marcela is one of them, but she stands among many powerful matriarchs who sacrificed, nurtured, protected, and built the foundation we stand on today.",
+    attendingMessage3: "Including the young ones is our way of connecting legacy to future. We want them present, we want them visible, and we want them to understand that they come from strength. Their attendance honors the women who came before them, and their presence keeps that history alive.",
+    attendingMessage4: "Thank you again for confirming your attendance. We look forward to celebrating together as one unified family, bridging generations with love, respect, and gratitude.",
+    unableMessage1: "Thank you for letting us know you won't be able to join us for Marcela Garcia's Celebration of Life. We understand that not everyone can attend, and we appreciate you taking the time to respond.",
+    unableMessage2: "Even though you can't be with us in person, please keep Marcela and our family in your thoughts on this special day. Your connection to our family remains strong regardless of distance or circumstances.",
     addToCalendar: "📅 Add to Calendar",
     
     // Admin
@@ -142,9 +146,13 @@ export const translations = {
     // Success messages
     thankYouRsvp: "¡Gracias por tu Confirmación - Guarda la Fecha!",
     thankYouResponse: "¡Gracias por tu Respuesta!",
-    dearFamily: "Querida Familia y Amigos,",
-    attendingMessage: "Gracias por confirmar tu asistencia a la Celebración de Vida de Marcela Garcia. Tu respuesta nos ayuda a coordinar una reunión significativa que honra no solo a Marcela, sino a toda la generación de mujeres que llevaron a esta familia adelante.",
-    unableMessage: "Gracias por hacernos saber que no podrás acompañarnos en la Celebración de Vida de Marcela Garcia. Entendemos que no todos pueden asistir, y apreciamos que te hayas tomado el tiempo de responder.",
+    dearFamily: "Querida familia y amigos,",
+    attendingMessage1: "Gracias por confirmar su asistencia a la Celebración de Vida de Marcela García. Su respuesta nos ayuda a coordinar un encuentro significativo que honra no solo a Marcela, sino a toda una generación de mujeres que impulsaron y sostuvieron a nuestra familia.",
+    attendingMessage2: "Notarán que solicitamos información sobre los niños que asistirán, especialmente los menores de 16 años. Esto fue intencional. Esta celebración es más grande que una sola persona. Es un homenaje a las mujeres que formaron nuestras raíces, nuestra cultura y nuestra identidad. Marcela es una de ellas, y representa a muchas matriarcas fuertes que sacrificaron, cuidaron, protegieron y construyeron los cimientos sobre los que hoy estamos de pie.",
+    attendingMessage3: "Incluir a los más jóvenes es nuestra forma de unir el legado con el futuro. Queremos que estén presentes, que se vean y que entiendan que vienen de fortaleza. Su asistencia honra a las mujeres que nos antecedieron y su presencia mantiene viva esa historia.",
+    attendingMessage4: "Gracias nuevamente por confirmar. Esperamos celebrar juntos como una sola familia, uniendo generaciones con amor, respeto y gratitud.",
+    unableMessage1: "Gracias por hacernos saber que no podrás acompañarnos en la Celebración de Vida de Marcela Garcia. Entendemos que no todos pueden asistir, y apreciamos que te hayas tomado el tiempo de responder.",
+    unableMessage2: "Aunque no puedas estar con nosotros en persona, por favor mantén a Marcela y a nuestra familia en tus pensamientos en este día especial. Tu conexión con nuestra familia permanece fuerte sin importar la distancia o las circunstancias.",
     addToCalendar: "📅 Agregar al Calendario",
     
     // Admin

@@ -121,23 +121,23 @@ export default function SaveTheDatePage() {
             </h2>
             
             <div className="family-message">
-              <p><strong>Dear Family and Friends,</strong></p>
+              <p><strong>{t('dearFamily')}</strong></p>
               
               {attendanceStatus === 'attending' ? (
                 <>
-                  <p>Thank you for RSVPing to Marcela Garcia's Celebration of Life. Your response helps us coordinate a meaningful gathering that honors not only Marcela, but the entire generation of women who carried this family forward.</p>
+                  <p>{t('attendingMessage1')}</p>
                   
-                  <p>You'll notice we asked for details about the children attending, especially those under 16. This was intentional. This celebration is bigger than one person. It is a tribute to the women who created our roots, our culture, and our identity. Marcela is one of them, but she stands among many powerful matriarchs who sacrificed, nurtured, protected, and built the foundation we stand on today.</p>
+                  <p>{t('attendingMessage2')}</p>
                   
-                  <p>Including the young ones is our way of connecting legacy to future. We want them present, we want them visible, and we want them to understand that they come from strength. Their attendance honors the women who came before them, and their presence keeps that history alive.</p>
+                  <p>{t('attendingMessage3')}</p>
                   
-                  <p>Thank you again for confirming your attendance. We look forward to celebrating together as one unified family, bridging generations with love, respect, and gratitude.</p>
+                  <p>{t('attendingMessage4')}</p>
                 </>
               ) : (
                 <>
-                  <p>Thank you for letting us know you won't be able to join us for Marcela Garcia's Celebration of Life. We understand that not everyone can attend, and we appreciate you taking the time to respond.</p>
+                  <p>{t('unableMessage1')}</p>
                   
-                  <p>Even though you can't be with us in person, please keep Marcela and our family in your thoughts on this special day. Your connection to our family remains strong regardless of distance or circumstances.</p>
+                  <p>{t('unableMessage2')}</p>
                 </>
               )}
             </div>
