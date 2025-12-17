@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useLanguage } from '@/lib/language-context';
+import LanguageSwitcher from '@/components/language-switcher';
 
 export default function SaveTheDatePage() {
+  const { t } = useLanguage();
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -196,10 +199,12 @@ END:VCALENDAR`;
 
   return (
     <div className="home-wrapper">
+      <LanguageSwitcher />
+      
       <div className="home-container">
         <div className="home-hero">
           <div className="hero-content">
-            <h1 className="hero-title">Birthday Celebration!</h1>
+            <h1 className="hero-title">{t('heroTitle')}</h1>
             
             <div className="hero-image-wrapper-inline">
               <div className="image-frame">
@@ -211,7 +216,7 @@ END:VCALENDAR`;
               </div>
             </div>
 
-            <p className="hero-subtitle">Celebration of Life for our beloved 98-year-old Grandmother. All generations of our family are invited, with a special welcome to the young ones.</p>
+            <p className="hero-subtitle">{t('heroSubtitle')}</p>
             
             <div className="hero-details">
               <div className="detail-item">
@@ -269,7 +274,7 @@ END:VCALENDAR`;
                   }}
                   className="btn btn-primary btn-attendance"
                 >
-                  RSVP - I'll be attending
+                  {t('rsvpAttending')}
                 </button>
                 
                 <button
@@ -279,7 +284,7 @@ END:VCALENDAR`;
                   }}
                   className="btn btn-secondary btn-attendance"
                 >
-                  Unable to attend
+                  {t('unableAttend')}
                 </button>
               </div>
             </div>
@@ -290,15 +295,15 @@ END:VCALENDAR`;
         {showForm && (
           <div className="rsvp-form-section">
             <h2 className="form-title">
-              {attendanceChoice === 'attending' ? 'RSVP for Birthday Celebration' : 'Unable to Attend'}
+              {attendanceChoice === 'attending' ? t('formTitle') : t('unableAttendTitle')}
             </h2>
-            <p className="form-subtitle rsvp-deadline-note">Please complete by Sunday, December 28th, 2025 at 5:00 PM</p>
+            <p className="form-subtitle rsvp-deadline-note">{t('formDeadline')}</p>
 
             {error && <div className="error-message">{error}</div>}
 
             <form onSubmit={handleSubmit} className="rsvp-form">
               <div className="form-group">
-                <label htmlFor="fullName">Primary Guest Name *</label>
+                <label htmlFor="fullName">{t('primaryGuestName')}</label>
                 <input
                   type="text"
                   id="fullName"
@@ -325,7 +330,7 @@ END:VCALENDAR`;
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="phone">Phone *</label>
+                    <label htmlFor="phone">{t('phone')}</label>
                     <input
                       type="tel"
                       id="phone"
@@ -439,7 +444,7 @@ END:VCALENDAR`;
               )}
 
               <button type="submit" className="btn btn-primary btn-large" disabled={loading}>
-                {loading ? 'Submitting...' : (attendanceChoice === 'attending' ? 'Submit RSVP' : 'Submit Response')}
+                {loading ? t('submitting') : (attendanceChoice === 'attending' ? t('submitRsvp') : t('submitResponse'))}
               </button>
             </form>
           </div>
