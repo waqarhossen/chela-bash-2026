@@ -262,8 +262,7 @@ END:VCALENDAR`;
 
             <div className="attendance-choice-section">
               <p className="attendance-instruction">
-                Please select one so we know you received the invitation and can plan properly. 
-                Your response truly helps the family prepare for this special celebration.
+                {t('attendanceInstruction')}
               </p>
               
               <div className="attendance-buttons">
