@@ -412,7 +412,7 @@ END:VCALENDAR`;
                             onClick={() => removeChild(index)}
                             className="btn-remove-child"
                           >
-                            Remove
+                            {t('removeChild')}
                           </button>
                         )}
                       </div>
@@ -422,7 +422,7 @@ END:VCALENDAR`;
                       onClick={addChild}
                       className="btn-add-child"
                     >
-                      + Add Child
+                      {t('addChild')}
                     </button>
                   </div>
                 </>
