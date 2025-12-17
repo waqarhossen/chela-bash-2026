@@ -5,6 +5,12 @@ import { LanguageProvider } from '@/lib/language-context'
 export const metadata: Metadata = {
   title: 'Birthday Celebration',
   description: 'Join us for a special celebration',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32' }
+    ],
+  },
 }
 
 export default function RootLayout({
