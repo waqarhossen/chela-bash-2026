@@ -221,26 +221,26 @@ END:VCALENDAR`;
             <div className="hero-details">
               <div className="detail-item">
                 <div>
-                  <div className="detail-label">Event Date</div>
-                  <div className="detail-value">Saturday, January 17th, 2026</div>
+                  <div className="detail-label">{t('eventDateLabel')}</div>
+                  <div className="detail-value">{t('eventDateValue')}</div>
                 </div>
               </div>
               <div className="detail-item">
                 <div>
-                  <div className="detail-label">Time</div>
-                  <div className="detail-value">11:00 AM - 3:00 PM</div>
+                  <div className="detail-label">{t('timeLabel')}</div>
+                  <div className="detail-value">{t('timeValue')}</div>
                 </div>
               </div>
               <div className="detail-item">
                 <div>
-                  <div className="detail-label">Location</div>
-                  <div className="detail-value">Rancho Cucamonga, California</div>
+                  <div className="detail-label">{t('locationLabel')}</div>
+                  <div className="detail-value">{t('locationValue')}</div>
                 </div>
               </div>
               <div className="detail-item rsvp-deadline">
                 <div>
-                  <div className="detail-label">RSVP Deadline</div>
-                  <div className="detail-value">Sunday, December 28th, 2025 at 5:00 PM</div>
+                  <div className="detail-label">{t('rsvpDeadlineLabel')}</div>
+                  <div className="detail-value">{t('rsvpDeadlineValue')}</div>
                 </div>
               </div>
             </div>
