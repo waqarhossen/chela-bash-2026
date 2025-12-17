@@ -324,7 +324,7 @@ END:VCALENDAR`;
                       name="relationship"
                       value={formData.relationship}
                       onChange={handleChange}
-                      placeholder="e.g., Granddaughter, Friend, Neighbor"
+                      placeholder={t('relationshipPlaceholder')}
                       required
                     />
                   </div>
@@ -383,7 +383,7 @@ END:VCALENDAR`;
                               id={`childName${index}`}
                               value={child.name}
                               onChange={(e) => handleChildChange(index, 'name', e.target.value)}
-                              placeholder="Child's name"
+                              placeholder={t('childNamePlaceholder')}
                             />
                           </div>
                           <div className="form-group">
@@ -393,7 +393,7 @@ END:VCALENDAR`;
                               id={`childAge${index}`}
                               value={child.age}
                               onChange={(e) => handleChildChange(index, 'age', e.target.value)}
-                              placeholder="Age"
+                              placeholder={t('childAgePlaceholder')}
                             />
                           </div>
                           <div className="form-group">
@@ -403,7 +403,7 @@ END:VCALENDAR`;
                               id={`childRel${index}`}
                               value={child.relationship}
                               onChange={(e) => handleChildChange(index, 'relationship', e.target.value)}
-                              placeholder="e.g., Great-granddaughter"
+                              placeholder={t('childRelationshipPlaceholder')}
                             />
                           </div>
                         </div>
