@@ -245,7 +245,7 @@ END:VCALENDAR`;
               </div>
             </div>
 
-            <p className="venue-note">Full location details will be shared in the formal invitation</p>
+            <p className="venue-note">{t('venueNote')}</p>
 
             <div className="audio-section">
               <audio 

@@ -4,6 +4,7 @@ export const translations = {
     heroTitle: "Birthday Celebration!",
     heroSubtitle: "Join us for a Celebration of Life honoring our beloved 98-year-old Grandmother",
     attendanceInstruction: "Please select one so we know you received the invitation and can plan properly. Your response truly helps the family prepare for this special celebration.",
+    venueNote: "Full location details will be shared in the formal invitation",
     rsvpAttending: "RSVP - I'll be attending",
     unableAttend: "Unable to attend",
     
@@ -94,6 +95,7 @@ export const translations = {
     heroTitle: "¡Celebración de Cumpleaños!",
     heroSubtitle: "Únete a nosotros para una Celebración de Vida en honor a nuestra querida abuela de 98 años",
     attendanceInstruction: "Por favor selecciona una opción para que sepamos que recibiste la invitación y podamos planificar adecuadamente. Tu respuesta realmente ayuda a la familia a prepararse para esta celebración especial.",
+    venueNote: "Los detalles completos del lugar se compartirán en la invitación formal",
     rsvpAttending: "Confirmar asistencia - Asistiré",
     unableAttend: "No podré asistir",
     
