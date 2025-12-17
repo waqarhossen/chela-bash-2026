@@ -371,7 +371,7 @@ END:VCALENDAR`;
                   </div>
 
                   <div className="children-details-section">
-                    <label className="section-label">Children's Details</label>
+                    <label className="section-label">{t('childrenDetails')}</label>
                     {childrenList.map((child, index) => (
                       <div key={index} className="child-entry">
                         <div className="child-fields">
